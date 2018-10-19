@@ -80,8 +80,8 @@ const stepOne = msg => {
 
 const sendResponse = (req, res, next) => {
   const donor = donor_exists(req.body.From);
+  console.log("this is the donor: ", donor);
   if (donor) {
-    console.log("exists!");
     switch (donor.steps) {
       case 0:
         stepOne(req.body);
