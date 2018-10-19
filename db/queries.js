@@ -88,6 +88,7 @@ const stepOne = msg => {
 
 const sendResponse = (req, res, next) => {
   donor_exists(req.body.From).then(donor => {
+    console.log(donor);
     db.none(
       "INSERT INTO sms_donor_messages(message, sms_sid, account_sid, sms_donor_id) VALUES (${message}, ${sms_id}, ${acct_id}, ${donor_id})",
       {
