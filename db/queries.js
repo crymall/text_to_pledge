@@ -24,7 +24,7 @@ const donor_exists = phone => {
   let user;
   console.log(phone)
 
-  db.any('SELECT * FROM sms_donors WHERE phone_number = ${phone}', {
+  db.any('SELECT * FROM sms_donors WHERE phone_number = "${phone}"', {
     phone: phone
   })
     .then(res => {
