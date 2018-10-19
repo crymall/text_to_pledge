@@ -23,7 +23,7 @@ const sendMsg = (to, body) => {
 const donor_exists = phone => {
   let user;
 
-  db.any("SELECT * FROM sms_donors WHERE phone_number = ${phone}", {
+  db.any('SELECT * FROM sms_donors WHERE phone_number = ${phone}', {
     phone: phone
   })
     .then(res => {
@@ -39,7 +39,7 @@ const donor_exists = phone => {
 
 const create_donor = user => {
   db.none(
-    "INSERT INTO sms_donors (phone_number, steps) VALUES (${From}, 0)",
+    'INSERT INTO sms_donors (phone_number, steps) VALUES (${From}, 0)',
     user
   )
     .then(res => {
@@ -63,7 +63,7 @@ const stepOne = msg => {
       phone: msg.From
     };
     db.any(
-      "UPDATE sms_donors SET name = ${name}, email = ${email}, steps = 1 WHERE phone_number = ${phone}",
+      'UPDATE sms_donors SET name = ${name}, email = ${email}, steps = 1 WHERE phone_number = ${phone}',
       info
     );
 
