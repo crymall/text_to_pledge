@@ -9,9 +9,9 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios.get("/").then(res => {
-      console.log(res);
-    });
+    // axios.get("/").then(res => {
+    //   console.log(res);
+    // });
   }
 
   render() {
