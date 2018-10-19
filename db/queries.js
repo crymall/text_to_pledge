@@ -21,27 +21,22 @@ const sendMsg = (to, body) => {
 };
 
 const donor_exists = phone => {
-  let user;
-  console.log(phone)
-
-  db.any('SELECT * FROM sms_donors WHERE phone_number = ${phone}', {
-    phone: phone
-  })
+  return db
+    .any("SELECT * FROM sms_donors WHERE phone_number = ${phone}", {
+      phone: phone
+    })
     .then(res => {
-      console.log('response??', res)
-      user = res;
+      return res[0];
     })
     .catch(err => {
       console.log(err);
-      user = false;
+      return false;
     });
-
-  return user;
 };
 
 const create_donor = user => {
   db.none(
-    'INSERT INTO sms_donors (phone_number, steps) VALUES (${From}, 0)',
+    "INSERT INTO sms_donors (phone_number, steps) VALUES (${From}, 0)",
     user
   )
     .then(res => {
@@ -65,7 +60,7 @@ const stepOne = msg => {
       phone: msg.From
     };
     db.any(
-      'UPDATE sms_donors SET name = ${name}, email = ${email}, steps = 1 WHERE phone_number = ${phone}',
+      "UPDATE sms_donors SET name = ${name}, email = ${email}, steps = 1 WHERE phone_number = ${phone}",
       info
     );
 
@@ -81,19 +76,19 @@ const stepOne = msg => {
 // ROUTING FUNCTIONS
 
 const sendResponse = (req, res, next) => {
-  const donor = donor_exists(req.body.From);
-  console.log("this is the donor: ", donor);
-  if (donor) {
-    switch (donor.steps) {
-      case 0:
-        stepOne(req.body);
-        break;
+  donor_exists(req.body.From).then(donor => {
+    if (donor) {
+      switch (donor.steps) {
+        case 0:
+          stepOne(req.body);
+          break;
+      }
+      res.status(200).send({ status: "OK" });
+    } else {
+      create_donor(req.body);
+      res.status(200).send({ status: "OK" });
     }
-    res.status(200).send({ status: "OK" });
-  } else {
-    create_donor(req.body);
-    res.status(200).send({ status: "OK" });
-  }
+  });
 };
 
 module.exports = {
