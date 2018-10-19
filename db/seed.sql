@@ -20,8 +20,6 @@ CREATE TABLE sms_donor_messages (
   message TEXT,
   sms_sid VARCHAR,
   account_sid VARCHAR,
-  sms_message_sid VARCHAR,
-  message_sid VARCHAR,
   sms_donor_id INTEGER REFERENCES sms_donors,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

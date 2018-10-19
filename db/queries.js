@@ -52,7 +52,6 @@ const create_donor = user => {
 
 const stepOne = msg => {
   let splitMsg = msg.Body.split(" ");
-  console.log(splitMsg);
   if (splitMsg.length === 3) {
     let info = {
       name: splitMsg.slice(0, 2).join(" "),
@@ -88,23 +87,35 @@ const stepOne = msg => {
 // ROUTING FUNCTIONS
 
 const sendResponse = (req, res, next) => {
-  console.log(req.body);
   donor_exists(req.body.From).then(donor => {
-    // db.none("INSERT INTO sms_donor_messages(message, )");
-    if (donor) {
-      switch (donor.steps) {
-        case 0:
-          stepOne(req.body);
-          break;
-        case 1:
-          stepTwo(req.body);
-          break;
+    db.none(
+      "INSERT INTO sms_donor_messages(message, sms_sid, account_sid, sms_donor_id) VALUES (${message}, ${sms_id}, ${acct_id}, ${donor_id})",
+      {
+        message: req.body.Body,
+        sms_id: req.body.SmsSid,
+        acct_id: req.body.AccountSid,
+        donor_id: donor.id
       }
-      res.status(200).send({ status: "OK" });
-    } else {
-      create_donor(req.body);
-      res.status(200).send({ status: "OK" });
-    }
+    )
+      .then(() => {
+        if (donor) {
+          switch (donor.steps) {
+            case 0:
+              stepOne(req.body);
+              break;
+            case 1:
+              stepTwo(req.body);
+              break;
+          }
+          res.status(200).send({ status: "OK" });
+        } else {
+          create_donor(req.body);
+          res.status(200).send({ status: "OK" });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   });
 };
 
