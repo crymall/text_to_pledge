@@ -34,7 +34,16 @@ const sendResponse = (req, res, next) => {
     console.log("exists!");
     res.status(200).send({ status: "OK" });
   } else {
-    console.log("does not exist!");
+    client.messages.create(
+      {
+        to: req.body.From,
+        from: "+13475274222",
+        body: "Hey there! Please reply with your first and last name."
+      },
+      (err, message) => {
+        console.log(message.body);
+      }
+    );
 
     res.status(200).send({ status: "OK" });
   }
