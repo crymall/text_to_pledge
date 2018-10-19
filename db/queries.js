@@ -65,6 +65,10 @@ const stepOne = msg => {
     )
       .then(res => {
         sendMsg(msg.From, `Thank you for registering, ${info.name}!`);
+        sendMsg(
+          msg.From,
+          "Please reply 1 to pledge cash, 2 to pledge volunteering, or 3 to pledge both."
+        );
       })
       .catch(err => {
         sendMsg(
@@ -84,11 +88,16 @@ const stepOne = msg => {
 // ROUTING FUNCTIONS
 
 const sendResponse = (req, res, next) => {
+  console.log(req.body);
   donor_exists(req.body.From).then(donor => {
+    // db.none("INSERT INTO sms_donor_messages(message, )");
     if (donor) {
       switch (donor.steps) {
         case 0:
           stepOne(req.body);
+          break;
+        case 1:
+          stepTwo(req.body);
           break;
       }
       res.status(200).send({ status: "OK" });

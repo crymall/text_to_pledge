@@ -10,6 +10,7 @@ CREATE TABLE sms_donors (
   name VARCHAR,
   email VARCHAR,
   steps INTEGER,
+  volunteer BOOLEAN,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
