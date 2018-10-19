@@ -56,7 +56,7 @@ const stepOne = msg => {
   if (splitMsg.length === 3) {
     let info = {
       name: splitMsg.slice(0, 2).join(" "),
-      email: splitMsg[3],
+      email: splitMsg[2],
       phone: msg.From
     };
     db.any(
@@ -76,7 +76,7 @@ const stepOne = msg => {
   } else {
     sendMsg(
       msg.From,
-      "Sorry, something went wrong. Please make sure to reply with your first name, last name, and email."
+      "Sorry, something went wrong. Please make sure to reply with your first name, last name, and email, separated by spaces."
     );
   }
 };
