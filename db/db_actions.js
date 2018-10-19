@@ -2,6 +2,7 @@ const db = require("./db_info");
 const msg_actions = require("./msg_actions");
 
 const donor_exists = phone => {
+  console.log("yep, we got here...");
   return db
     .any("SELECT * FROM sms_donors WHERE phone_number = ${phone}", {
       phone: phone
