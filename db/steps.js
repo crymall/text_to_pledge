@@ -34,7 +34,9 @@ const stepOne = msg => {
   }
 };
 
-const stepTwo = () => {};
+const stepTwo = msg => {
+  let intMsg = Number(msg);
+};
 
 module.exports = {
   stepOne,
