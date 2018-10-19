@@ -87,19 +87,18 @@ const stepOne = msg => {
 // ROUTING FUNCTIONS
 
 const sendResponse = (req, res, next) => {
-  donor_exists(req.body.From).then(donor => {
-    console.log(donor);
-    db.none(
-      "INSERT INTO sms_donor_messages(message, sms_sid, account_sid, sms_donor_id) VALUES (${message}, ${sms_id}, ${acct_id}, ${donor_id})",
-      {
-        message: req.body.Body,
-        sms_id: req.body.SmsSid,
-        acct_id: req.body.AccountSid,
-        donor_id: donor.id
-      }
-    )
-      .then(() => {
-        if (donor) {
+  donor_exists(req.body.From)
+    .then(donor => {
+      if (donor) {
+        db.none(
+          "INSERT INTO sms_donor_messages(message, sms_sid, account_sid, sms_donor_id) VALUES (${message}, ${sms_id}, ${acct_id}, ${donor_id})",
+          {
+            message: req.body.Body,
+            sms_id: req.body.SmsSid,
+            acct_id: req.body.AccountSid,
+            donor_id: donor.id
+          }
+        ).then(() => {
           switch (donor.steps) {
             case 0:
               stepOne(req.body);
@@ -109,15 +108,15 @@ const sendResponse = (req, res, next) => {
               break;
           }
           res.status(200).send({ status: "OK" });
-        } else {
-          create_donor(req.body);
-          res.status(200).send({ status: "OK" });
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  });
+        });
+      } else {
+        create_donor(req.body);
+        res.status(200).send({ status: "OK" });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };
 
 module.exports = {
