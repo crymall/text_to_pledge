@@ -62,9 +62,17 @@ const stepOne = msg => {
     db.any(
       "UPDATE sms_donors SET name = ${name}, email = ${email}, steps = 1 WHERE phone_number = ${phone}",
       info
-    );
-
-    sendMsg(msg.From, "Thank you for registering!");
+    )
+      .then(res => {
+        sendMsg(msg.From, `Thank you for registering, ${info.name}!`);
+      })
+      .catch(err => {
+        sendMsg(
+          msg.From,
+          "Sorry, something went wrong. Did you already register with us?"
+        );
+        console.log("Error updating user: " + err);
+      });
   } else {
     sendMsg(
       msg.From,
