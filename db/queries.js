@@ -23,13 +23,14 @@ const sendMsg = (to, body) => {
 const donor_exists = phone => {
   let user;
 
-  db.one("SELECT * FROM sms_donors WHERE phone_number = ${phone}", {
+  db.any("SELECT * FROM sms_donors WHERE phone_number = ${phone}", {
     phone: phone
   })
     .then(res => {
       user = res;
     })
     .catch(err => {
+      console.log(err);
       user = false;
     });
 

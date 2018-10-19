@@ -6,7 +6,7 @@
 DROP TABLE IF EXISTS sms_donors CASCADE;
 CREATE TABLE sms_donors (
   id SERIAL PRIMARY KEY,
-  phone_number VARCHAR,
+  phone_number VARCHAR UNIQUE,
   name VARCHAR,
   email VARCHAR,
   steps INTEGER,
