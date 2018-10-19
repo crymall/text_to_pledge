@@ -55,6 +55,7 @@ const create_donor = user => {
 
 const stepOne = msg => {
   let splitMsg = msg.Body.split(" ");
+  console.log(splitMsg);
   if (splitMsg.length === 3) {
     let info = {
       name: splitMsg.slice(0, 2).join(" "),
