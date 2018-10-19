@@ -8,7 +8,6 @@ const msg_actions = require("./msg_actions");
 // handleResponse contains all of the logic for responding to donors' messages.
 const handleResponse = (req, res, next) => {
   // check if donor exists
-  console.log("here are our db actions ", db_actions);
   db_actions
     .donor_exists(req.body.From)
     .then(donor => {

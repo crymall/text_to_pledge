@@ -2,7 +2,6 @@ const db = require("./db_info");
 const msg_actions = require("./msg_actions");
 
 const donor_exists = phone => {
-  console.log("yep, we got here...");
   return db
     .any("SELECT * FROM sms_donors WHERE phone_number = ${phone}", {
       phone: phone
@@ -36,7 +35,7 @@ const create_donor = user => {
 };
 
 const add_msg = (body, donor) => {
-  db.none(
+  return db.none(
     "INSERT INTO sms_donor_messages(message, sms_sid, account_sid, sms_donor_id) VALUES (${message}, ${sms_id}, ${acct_id}, ${donor_id})",
     {
       message: body.Body,
