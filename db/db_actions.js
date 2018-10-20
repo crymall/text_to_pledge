@@ -46,8 +46,27 @@ const add_msg = (body, donor) => {
   );
 };
 
-const add_pledge = (body, donor) => {
-  // return db.none("INSERT INTO sms_pledges(sms_donor_id, )");
+const add_pledge = body => {
+  return db
+    .one("SELECT * FROM sms_donors WHERE phone_number = ${phone}", {
+      phone: body.From
+    })
+    .then(donor => {
+      db.none(
+        "INSERT INTO sms_pledges(sms_donor_id, message_present, payment, amount) VALUES ${donor}, false, ${raw}, ${amount}",
+        {
+          donor: donor.id,
+          raw: body.Body,
+          amount: Number(body.Body.replace(/[^0-9.-]+/g, ""))
+        }
+      );
+    })
+    .catch(() => {
+      msg_actions.sendMsg(
+        body.From,
+        "Sorry, something went wrong. Please try again."
+      );
+    });
 };
 
 module.exports = {

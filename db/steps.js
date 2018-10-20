@@ -2,6 +2,8 @@ const msg_actions = require("./msg_actions");
 const db_actions = require("./db_actions");
 const db = require("./db_info");
 
+// PRIMARY ROUTING ACTIONS
+
 const stepOne = msg => {
   let splitMsg = msg.Body.split(" ");
   // message format: "FirstName LastName email@email.com" =>
@@ -55,10 +57,45 @@ const stepTwo = msg => {
   }
 };
 
+const stepThree = msg => {
+  db_actions
+    .add_pledge(msg)
+    .then(() => {
+      db.none("UPDATE sms_donors SET steps = 3 WHERE phone_number = ${phone}", {
+        phone: msg.From
+      })
+        .then(() => {
+          msg_actions.sendMsg(
+            msg.From,
+            "Thank you so much. Would you like to add a public message to this pledge? Please reply 'no' if not, and with your message if so."
+          );
+        })
+        .catch(() => {
+          msg_actions.sendMsg(
+            msg.From,
+            "Sorry, something went wrong. Please try again."
+          );
+        });
+    })
+    .catch(() => {
+      msg_actions.sendMsg(
+        msg.From,
+        "Sorry - please make sure to reply with a valid dollar amount."
+      );
+    });
+};
+
+const stepFour = () => {};
+
+// HANDLER ACTIONS
+
 const handleDonation = msg => {
-  db.any("UPDATE sms_donors SET steps = 2 WHERE phone_number = ${phone}", {
-    phone: msg.From
-  })
+  db.any(
+    "UPDATE sms_donors SET steps = 2, volunteer = false WHERE phone_number = ${phone}",
+    {
+      phone: msg.From
+    }
+  )
     .then(() => {
       msg_actions.sendMsg(
         msg.From,
@@ -94,9 +131,30 @@ const handleVolunteering = msg => {
     });
 };
 
-const handleBoth = () => {};
+const handleBoth = msg => {
+  db.any(
+    "UPDATE sms_donors SET steps = 2, volunteer = true WHERE phone_number = ${phone}",
+    {
+      phone: msg.From
+    }
+  )
+    .then(() => {
+      msg_actions.sendMsg(
+        msg.From,
+        "Thanks for volunteering and pledging! We'll be in touch. Please reply with the amount you'd like to pledge."
+      );
+    })
+    .catch(() => {
+      msg_actions.sendMsg(
+        msg.From,
+        "Sorry, something went wrong. Please try again."
+      );
+    });
+};
 
 module.exports = {
   stepOne,
-  stepTwo
+  stepTwo,
+  stepThree,
+  stepFour
 };

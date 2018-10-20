@@ -25,6 +25,12 @@ const handleResponse = (req, res, next) => {
             case 2:
               steps.stepThree(req.body);
               break;
+            case 3:
+              steps.stepFour(req.body);
+              break;
+            default:
+              console.log(err);
+              break;
           }
           res.status(200).send({ status: "OK" });
         });
