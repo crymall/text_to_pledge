@@ -133,12 +133,9 @@ const stepFour = msg => {
 // HANDLER ACTIONS
 
 const handleDonation = msg => {
-  db.any(
-    "UPDATE sms_donors SET steps = 2, volunteer = false WHERE phone_number = ${phone}",
-    {
-      phone: msg.From
-    }
-  )
+  db.any("UPDATE sms_donors SET steps = 2 WHERE phone_number = ${phone}", {
+    phone: msg.From
+  })
     .then(() => {
       msg_actions.sendMsg(
         msg.From,
