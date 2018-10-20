@@ -1,5 +1,6 @@
 const msg_actions = require("./msg_actions");
 const db_actions = require("./db_actions");
+const db = require("./db_info");
 
 const stepOne = msg => {
   let splitMsg = msg.Body.split(" ");
