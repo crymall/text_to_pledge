@@ -75,19 +75,21 @@ const add_pledge = async body => {
 };
 
 const update_pledge = async body => {
-  const donor = await db.one(
-    "SELECT * FROM sms_donors WHERE phone_number = ${phone}",
-    {
+  const donor = await db
+    .one("SELECT * FROM sms_donors WHERE phone_number = ${phone}", {
       phone: body.From
-    }
-  );
+    })
+    .catch(err => {
+      console.log(err);
+    });
 
-  const selectPledge = await db.one(
-    "SELECT * FROM sms_pledges WHERE sms_donor_id = ${id} LIMIT 1",
-    {
+  const pledge = await db
+    .one("SELECT * FROM sms_pledges WHERE sms_donor_id = ${id} LIMIT 1", {
       id: donor.id
-    }
-  );
+    })
+    .catch(err => {
+      console.log(err);
+    });
 
   const updatePledge = db
     .any(
