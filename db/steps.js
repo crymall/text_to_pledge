@@ -8,10 +8,13 @@ const stepOne = msg => {
   let splitMsg = msg.Body.split(" ");
   // message format: "FirstName LastName email@email.com" =>
   // splitMsg: [FirstName, LastName, email@email.com]
-  if (splitMsg.length === 3) {
+  if (splitMsg.length === 3 || splitMsg.length === 4) {
     let info = {
-      name: splitMsg.slice(0, 2).join(" "),
-      email: splitMsg[2],
+      name:
+        splitMsg.length === 3
+          ? splitMsg.slice(0, 2).join(" ")
+          : splitMsg.slice(0, 3).join(" "),
+      email: splitMsg.length === 3 ? splitMsg[2] : splitMsg[3],
       phone: msg.From
     };
     db.any(
@@ -85,7 +88,26 @@ const stepThree = msg => {
     });
 };
 
-const stepFour = () => {};
+const stepFour = msg => {
+  db_actions
+    .update_pledge(msg)
+    .then(() => {
+      db.none("UPDATE sms_donors SET steps = 1 WHERE phone_number = ${phone}", {
+        phone: msg.From
+      }).then(() => {
+        msg_actions.sendMsg(
+          msg.From,
+          "Thanks so much! Please reply with '1' to donate again."
+        );
+      });
+    })
+    .catch(() => {
+      msg_actions.sendMsg(
+        msg.From,
+        "Sorry, something went wrong. Please try again."
+      );
+    });
+};
 
 // HANDLER ACTIONS
 

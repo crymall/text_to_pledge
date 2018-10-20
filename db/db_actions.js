@@ -71,9 +71,35 @@ const add_pledge = body => {
     });
 };
 
+const update_pledge = body => {
+  return db
+    .one("SELECT * FROM sms_donors WHERE phone_number = ${phone}", {
+      phone: body.From
+    })
+    .then(donor => {
+      db.one("SELECT * FROM sms_pledges WHERE sms_donor_id = ${id} LIMIT 1", {
+        id: donor.id
+      }).then(pledge => {
+        db.any(
+          "UPDATE sms_pledges SET message = ${msg}, message_present = true WHERE id = ${id}",
+          {
+            id: pledge.id
+          }
+        );
+      });
+    })
+    .catch(() => {
+      msg_actions.sendMsg(
+        msg.From,
+        "Sorry, something went wrong. Please try again."
+      );
+    });
+};
+
 module.exports = {
   donor_exists,
   create_donor,
   add_msg,
-  add_pledge
+  add_pledge,
+  update_pledge
 };
