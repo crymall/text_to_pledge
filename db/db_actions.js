@@ -46,8 +46,13 @@ const add_msg = (body, donor) => {
   );
 };
 
+const add_pledge = (body, donor) => {
+  // return db.none("INSERT INTO sms_pledges(sms_donor_id, )");
+};
+
 module.exports = {
   donor_exists,
   create_donor,
-  add_msg
+  add_msg,
+  add_pledge
 };

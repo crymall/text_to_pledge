@@ -5,7 +5,7 @@ const msg_actions = require("./msg_actions");
 
 // ROUTING FUNCTIONS
 
-// handleResponse contains all of the logic for responding to donors' messages.
+// handleResponse contains all of the routing logic for responding to donors' messages.
 const handleResponse = (req, res, next) => {
   // check if donor exists
   db_actions
@@ -21,6 +21,9 @@ const handleResponse = (req, res, next) => {
               break;
             case 1:
               steps.stepTwo(req.body);
+              break;
+            case 2:
+              steps.stepThree(req.body);
               break;
           }
           res.status(200).send({ status: "OK" });
