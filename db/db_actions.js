@@ -61,7 +61,7 @@ const add_pledge = body => {
       db.none(
         "INSERT INTO sms_pledges(sms_donor_id, message_present, payment, amount) VALUES ${donor}, false, ${raw}, ${amount}",
         {
-          donor: donor.id,
+          donor: Number(donor.id),
           raw: body.Body,
           amount: Number(body.Body.replace(/[^0-9.-]+/g, ""))
         }
