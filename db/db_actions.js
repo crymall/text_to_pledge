@@ -52,18 +52,12 @@ const add_pledge = body => {
       phone: body.From
     })
     .then(donor => {
-      console.log("THIS IS THE DONOR: ", donor);
-      console.log("THIS IS THE BODY: ", body);
-      console.log(
-        "THIS IS THE AMOUNT: ",
-        Number(body.Body.replace(/[^0-9.-]+/g, ""))
-      );
       db.none(
-        "INSERT INTO sms_pledges(sms_donor_id, message_present, payment, amount) VALUES ${donor}, false, ${raw}, ${amount}",
+        "INSERT INTO sms_pledges(sms_donor_id, message_present, payment, amount) VALUES (${donor}, false, ${raw}, ${amount})",
         {
           donor: Number(donor.id),
           raw: body.Body,
-          amount: Number(body.Body.replace(/[^0-9.-]+/g, ""))
+          amount: parseFloat(Number(body.Body.replace(/[^0-9.-]+/g, "")))
         }
       ).catch(err => {
         console.log(err);
