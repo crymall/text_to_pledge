@@ -88,7 +88,7 @@ const stepThree = msg => {
     });
 };
 
-const stepFour = msg => {
+const stepFour = async msg => {
   if (msg.Body.toLowerCase() === "no") {
     db.none("UPDATE sms_donors SET steps = 1 WHERE phone_number = ${phone}", {
       phone: msg.From
@@ -106,20 +106,22 @@ const stepFour = msg => {
         );
       });
   } else {
-    db_actions
-      .update_pledge(msg)
+    const pledge_updated = await db_actions.update_pledge(msg).catch(() => {
+      msg_actions.sendMsg(
+        msg.From,
+        "Sorry, something went wrong. Please try again."
+      );
+    });
+
+    const update_donor = await db
+      .none("UPDATE sms_donors SET steps = 1 WHERE phone_number = ${phone}", {
+        phone: msg.From
+      })
       .then(() => {
-        db.none(
-          "UPDATE sms_donors SET steps = 1 WHERE phone_number = ${phone}",
-          {
-            phone: msg.From
-          }
-        ).then(() => {
-          msg_actions.sendMsg(
-            msg.From,
-            "Thanks so much! Please reply with '1' to donate again."
-          );
-        });
+        msg_actions.sendMsg(
+          msg.From,
+          "Thanks so much! Please reply with '1' to donate again."
+        );
       })
       .catch(() => {
         msg_actions.sendMsg(

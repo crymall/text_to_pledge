@@ -46,22 +46,10 @@ const add_msg = (body, donor) => {
   );
 };
 
-const add_pledge = body => {
-  return db
+const add_pledge = async body => {
+  const donor = await db
     .one("SELECT * FROM sms_donors WHERE phone_number = ${phone}", {
       phone: body.From
-    })
-    .then(donor => {
-      db.none(
-        "INSERT INTO sms_pledges(sms_donor_id, message_present, payment, amount) VALUES (${donor}, false, ${raw}, ${amount})",
-        {
-          donor: Number(donor.id),
-          raw: body.Body,
-          amount: parseFloat(Number(body.Body.replace(/[^0-9.-]+/g, "")))
-        }
-      ).catch(err => {
-        console.log(err);
-      });
     })
     .catch(() => {
       msg_actions.sendMsg(
@@ -69,32 +57,54 @@ const add_pledge = body => {
         "Sorry, something went wrong. Please try again."
       );
     });
+
+  const insertPledge = await db
+    .none(
+      "INSERT INTO sms_pledges(sms_donor_id, message_present, payment, amount) VALUES (${donor}, false, ${raw}, ${amount})",
+      {
+        donor: Number(donor.id),
+        raw: body.Body,
+        amount: parseFloat(Number(body.Body.replace(/[^0-9.-]+/g, "")))
+      }
+    )
+    .catch(err => {
+      console.log(err);
+    });
+
+  return insertPledge;
 };
 
-const update_pledge = body => {
-  return db
-    .one("SELECT * FROM sms_donors WHERE phone_number = ${phone}", {
+const update_pledge = async body => {
+  const donor = await db.one(
+    "SELECT * FROM sms_donors WHERE phone_number = ${phone}",
+    {
       phone: body.From
-    })
-    .then(donor => {
-      db.one("SELECT * FROM sms_pledges WHERE sms_donor_id = ${id} LIMIT 1", {
-        id: donor.id
-      }).then(pledge => {
-        db.any(
-          "UPDATE sms_pledges SET message = ${msg}, message_present = true WHERE id = ${id}",
-          {
-            msg: body.Body,
-            id: pledge.id
-          }
-        );
-      });
-    })
+    }
+  );
+
+  const selectPledge = await db.one(
+    "SELECT * FROM sms_pledges WHERE sms_donor_id = ${id} LIMIT 1",
+    {
+      id: donor.id
+    }
+  );
+
+  const updatePledge = db
+    .any(
+      "UPDATE sms_pledges SET message = ${msg}, message_present = true WHERE id = ${id}",
+      {
+        msg: body.Body,
+        id: pledge.id
+      }
+    )
     .catch(() => {
       msg_actions.sendMsg(
         body.From,
         "Sorry, something went wrong. Please try again."
       );
     });
+
+  return updatePledge;
 };
 
 module.exports = {
