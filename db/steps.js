@@ -70,7 +70,7 @@ const stepThree = msg => {
         .then(() => {
           msg_actions.sendMsg(
             msg.From,
-            "Thank you so much. Would you like to add a public message to this pledge? Please reply 'no' if not, and with your message if so."
+            "Thank you so much. Would you like to add a public message to this pledge? Reply 'no' if not, and with your (140 character) message if so."
           );
         })
         .catch(() => {
