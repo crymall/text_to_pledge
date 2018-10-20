@@ -54,6 +54,7 @@ const add_pledge = body => {
     .then(donor => {
       console.log("THIS IS THE DONOR: ", donor);
       console.log("THIS IS THE BODY: ", body);
+      console.log("THIS IS THE AMOUNT: ", Number(body.Body.replace(/[^0-9.-]+/g, ""))
       db.none(
         "INSERT INTO sms_pledges(sms_donor_id, message_present, payment, amount) VALUES ${donor}, false, ${raw}, ${amount}",
         {
