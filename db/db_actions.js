@@ -83,6 +83,7 @@ const update_pledge = body => {
         db.any(
           "UPDATE sms_pledges SET message = ${msg}, message_present = true WHERE id = ${id}",
           {
+            msg: body.Body,
             id: pledge.id
           }
         );
@@ -90,7 +91,7 @@ const update_pledge = body => {
     })
     .catch(() => {
       msg_actions.sendMsg(
-        msg.From,
+        body.From,
         "Sorry, something went wrong. Please try again."
       );
     });
