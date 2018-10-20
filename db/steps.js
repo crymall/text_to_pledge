@@ -17,20 +17,20 @@ const stepOne = msg => {
       info
     )
       .then(res => {
-        sendMsg(
+        msg_actions.sendMsg(
           msg.From,
           "Thank you. Please reply 1 to pledge cash, 2 to pledge volunteering, or 3 to pledge both."
         );
       })
       .catch(err => {
-        sendMsg(
+        msg_actions.sendMsg(
           msg.From,
           "Sorry, something went wrong. Did you already register with us?"
         );
         console.log("Error updating user: " + err);
       });
   } else {
-    sendMsg(
+    msg_actions.sendMsg(
       msg.From,
       "Sorry, something went wrong. Please make sure to reply with your first name, last name, and email, separated by spaces."
     );
@@ -60,13 +60,16 @@ const handleDonation = msg => {
     phone: msg.From
   })
     .then(() => {
-      sendMsg(
+      msg_actions.sendMsg(
         msg.From,
         "Thanks for pledging! Please reply with the amount you'd like to pledge."
       );
     })
     .catch(() => {
-      sendMsg(msg.From, "Sorry, something went wrong. Please try again.");
+      msg_actions.sendMsg(
+        msg.From,
+        "Sorry, something went wrong. Please try again."
+      );
     });
 };
 
@@ -78,13 +81,16 @@ const handleVolunteering = msg => {
     }
   )
     .then(() => {
-      sendMsg(
+      msg_actions.sendMsg(
         msg.From,
         "Thanks for offering to volunteer! We'll be in touch. If you'd like to pledge money later, please reply with 1."
       );
     })
     .catch(() => {
-      sendMsg(msg.From, "Sorry, something went wrong. Please try again.");
+      msg_actions.sendMsg(
+        msg.From,
+        "Sorry, something went wrong. Please try again."
+      );
     });
 };
 
