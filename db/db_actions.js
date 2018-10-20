@@ -97,11 +97,8 @@ const update_pledge = async body => {
         id: pledge.id
       }
     )
-    .catch(() => {
-      msg_actions.sendMsg(
-        body.From,
-        "Sorry, something went wrong. Please try again."
-      );
+    .catch(err => {
+      console.log(err);
     });
 
   return updatePledge;
