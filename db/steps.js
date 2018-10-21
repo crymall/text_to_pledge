@@ -5,7 +5,9 @@ const db = require("./db_info");
 // PRIMARY ROUTING ACTIONS
 
 const stepOne = msg => {
-  let splitMsg = msg.Body.split(" ");
+  let splitMsg = msg.Body.split(" ").filter(el => {
+    return el !== "";
+  });
   // message format: "FirstName LastName email@email.com" =>
   // splitMsg: [FirstName, LastName, email@email.com]
   if (splitMsg.length === 3 || splitMsg.length === 4) {
