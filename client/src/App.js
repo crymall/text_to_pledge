@@ -14,7 +14,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    getInfo();
+    this.getInfo();
   }
 
   getInfo = () => {
@@ -32,7 +32,7 @@ class App extends Component {
         });
       })
       .then(() => {
-        setTimeout(getInfo, 10000);
+        setTimeout(this.getInfo, 10000);
       });
   };
 

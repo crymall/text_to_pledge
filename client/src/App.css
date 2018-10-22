@@ -52,7 +52,7 @@ h4 {
   font-family: "RobotoMonoBold", sans-serif;
   color: white;
   font-size: 20px;
-  margin-top: 5px;
+  margin-top: 0px;
 }
 
 .main-area {
@@ -72,7 +72,7 @@ h4 {
 .pledge-title {
   font-size: 25px;
   color: #edff00;
-  padding-bottom: 20px;
+  padding-bottom: 17px;
 }
 
 .the-bar {
