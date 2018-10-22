@@ -8,6 +8,7 @@ const stepOne = msg => {
   let splitMsg = msg.Body.split(" ").filter(el => {
     return el;
   });
+  console.log(splitMsg);
   // message format: "FirstName LastName email@email.com" =>
   // splitMsg: [FirstName, LastName, email@email.com]
   if (splitMsg.length === 3 || splitMsg.length === 4) {
