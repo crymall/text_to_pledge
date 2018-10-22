@@ -41,11 +41,11 @@ class App extends Component {
     console.log(pledges);
     const goal = 10000;
     const copyMessages = [
-      "Welcome to the celebration.",
-      "We're happy to see you here.",
-      "Help support another year of transformation.",
-      "Own your pursuit - and help others own theirs.",
-      "Help this to be a night to remember."
+      "Welcome to the \n celebration.",
+      "We're happy \n to see you here.",
+      "Help support another year \n of transformation.",
+      "Own your pursuit - \n and help others own theirs.",
+      "Help this to be \n a night to remember."
     ];
     const copyMessage =
       copyMessages[Math.floor(Math.random() * copyMessages.length)];

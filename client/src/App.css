@@ -46,6 +46,7 @@ h3 {
   font-size: 30px;
   color: white;
   margin-top: 5px;
+  white-space: pre-line;
 }
 
 h4 {
@@ -56,6 +57,7 @@ h4 {
 }
 
 .main-area {
+  width: 90%;
   padding-top: 100px;
   display: flex;
   flex-direction: row;

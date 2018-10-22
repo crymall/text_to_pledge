@@ -85,7 +85,7 @@ const updatePledge = async body => {
 
   const pledge = await db
     .one(
-      "SELECT * FROM sms_pledges WHERE sms_donor_id = ${id} ORDER BY created_at LIMIT 1",
+      "SELECT * FROM sms_pledges WHERE sms_donor_id = ${id} ORDER BY created_at DESC LIMIT 1",
       {
         id: donor.id
       }
