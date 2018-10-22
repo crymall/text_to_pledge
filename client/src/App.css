@@ -29,19 +29,39 @@ h3 {
   font-family: "GraphikRegular", sans-serif;
   font-size: 30px;
   color: white;
+  margin-top: 5px;
 }
 
 .main-area {
+  padding-top: 100px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  padding-bottom: 100px;
 }
 
 .the-bar {
   width: 60%;
 }
 
+.bar-tics {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+}
+
+.tic {
+  color: #edff00;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
 .lower-area {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
