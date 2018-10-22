@@ -14,23 +14,26 @@ class App extends Component {
   }
 
   componentDidMount() {
-    setInterval(
-      axios
-        .get("/total")
-        .then(res => {
-          return res.data.total.sum;
-        })
-        .then(total => {
-          axios.get("/pledges").then(res => {
-            this.setState({
-              total: total,
-              pledges: res.data.pledges
-            });
-          });
-        }),
-      30000
-    );
+    getInfo();
+
+    setInterval(getInfo, 10000);
   }
+
+  getInfo = () => {
+    axios
+      .get("/total")
+      .then(res => {
+        return res.data.total.sum;
+      })
+      .then(total => {
+        axios.get("/pledges").then(res => {
+          this.setState({
+            total: total,
+            pledges: res.data.pledges
+          });
+        });
+      });
+  };
 
   render() {
     const { total, pledges } = this.state;
@@ -38,7 +41,7 @@ class App extends Component {
     const copyMessages = [
       "Welcome to the celebration.",
       "We're happy to see you here.",
-      "Help support another year of transormation.",
+      "Help support another year of transformation.",
       "Own your pursuit - and help others own theirs.",
       "Help this to be a night to remember."
     ];
