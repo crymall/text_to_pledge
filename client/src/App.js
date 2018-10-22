@@ -9,7 +9,7 @@ class App extends Component {
     super();
     this.state = {
       total: 0,
-      pledges: ""
+      pledges: {}
     };
   }
 
@@ -34,7 +34,7 @@ class App extends Component {
     let singlePledge;
     let displayPledge;
 
-    if (pledges) {
+    if (pledges !== {}) {
       singlePledge = pledges[Math.floor(Math.random() * pledges.length)];
 
       displayPledge = (
@@ -47,7 +47,6 @@ class App extends Component {
 
     return (
       <div className="App">
-        <div className="background-logo" />
         <div className="header-area">
           <h1> PURSUIT BASH </h1>
         </div>
