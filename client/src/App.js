@@ -51,7 +51,7 @@ class App extends Component {
 
       displayPledge = (
         <div className="single-pledge">
-          <h3>
+          <h3 className="pledge-title">
             {singlePledge.name} donated ${singlePledge.amount}
           </h3>
           <h4>"{singlePledge.message}"</h4>
