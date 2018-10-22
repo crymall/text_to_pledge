@@ -28,7 +28,7 @@ class App extends Component {
         <h1>PURSUIT BASH</h1>
         <Line
           className="the-bar"
-          percent={(total / 1000).toString()}
+          percent={((total / 1000) * 100).toString()}
           strokeWidth="4"
           strokeColor="#1E1E1E"
           strokeLinecap="butt"
