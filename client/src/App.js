@@ -16,7 +16,7 @@ class App extends Component {
     axios.get("/total").then(res => {
       console.log(res);
       this.setState({
-        total: res.total
+        total: res.data.total
       });
     });
   }
