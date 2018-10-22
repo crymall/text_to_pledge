@@ -9,13 +9,24 @@
 }
 
 .App {
-  background-color: #4242ea;
 }
 
 h1 {
   font-family: "GraphikSemibold", sans-serif;
   font-color: "#1E1E1E";
   font-size: 40px;
+}
+
+.background-logo {
+  position: fixed;
+  background-image: url("./assets/logo-white.png");
+  z-index: 1;
+  opacity: 0.05;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 700px;
 }
 
 .header-area {

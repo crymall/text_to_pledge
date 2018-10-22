@@ -8,22 +8,32 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      total: 0
+      total: 0,
+      pledges: ""
     };
   }
 
   componentDidMount() {
-    axios.get("/total").then(res => {
-      this.setState({
-        total: res.data.total.sum
+    axios
+      .get("/total")
+      .then(res => {
+        return res.data.total.sum;
+      })
+      .then(total => {
+        axios.get("/pledges").then(res => {
+          this.setState({
+            total: total,
+            pledges: res.data.pledges
+          });
+        });
       });
-    });
   }
 
   render() {
     const { total } = this.state;
     return (
       <div className="App">
+        <div className="background-logo" />
         <div className="header-area">
           <h1> PURSUIT BASH </h1>
         </div>
@@ -38,12 +48,12 @@ class App extends Component {
         <div className="lower-area">
           <Line
             className="the-bar"
-            percent={((total / 1000) * 100).toString()}
-            strokeWidth="0.5"
+            percent={((total / 10000) * 100).toString()}
+            strokeWidth="2"
             strokeColor="#1E1E1E"
             strokeLinecap="butt"
             trailColor="#E3E3E3"
-            trailWidth="0.2"
+            trailWidth="1"
           />
           <div className="bar-tics">
             <div className="tic">
@@ -52,19 +62,19 @@ class App extends Component {
             </div>
             <div className="tic">
               <h3> | </h3>
-              <h3> 250 </h3>
+              <h3> 2.5K </h3>
             </div>
             <div className="tic">
               <h3> | </h3>
-              <h3> 500 </h3>
+              <h3> 5K </h3>
             </div>
             <div className="tic">
               <h3> | </h3>
-              <h3> 750 </h3>
+              <h3> 7.5K </h3>
             </div>
             <div className="tic">
               <h3> | </h3>
-              <h3> 1K </h3>
+              <h3> 10K </h3>
             </div>
           </div>
         </div>
