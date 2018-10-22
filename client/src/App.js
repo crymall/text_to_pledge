@@ -14,19 +14,22 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get("/total")
-      .then(res => {
-        return res.data.total.sum;
-      })
-      .then(total => {
-        axios.get("/pledges").then(res => {
-          this.setState({
-            total: total,
-            pledges: res.data.pledges
+    setInterval(
+      axios
+        .get("/total")
+        .then(res => {
+          return res.data.total.sum;
+        })
+        .then(total => {
+          axios.get("/pledges").then(res => {
+            this.setState({
+              total: total,
+              pledges: res.data.pledges
+            });
           });
-        });
-      });
+        }),
+      30000
+    );
   }
 
   render() {
