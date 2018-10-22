@@ -24,19 +24,28 @@ class App extends Component {
     const { total } = this.state;
     return (
       <div className="App">
-        <h1> PURSUIT BASH </h1>
+        <div className="header-area">
+          <h1> PURSUIT BASH </h1>
+        </div>
 
-        <h3> Welcome to the celebration </h3>
+        <div className="main-area">
+          <div className="content-area">
+            <h3> Welcome to the celebration </h3>
+          </div>
+          <div className="donation-area" />
+        </div>
 
-        <Line
-          className="the-bar"
-          percent={((total / 1000) * 100).toString()}
-          strokeWidth="4"
-          strokeColor="#1E1E1E"
-          strokeLinecap="butt"
-          trailColor="#E3E3E3"
-          trailWidth="2"
-        />
+        <div className="lower-area">
+          <Line
+            className="the-bar"
+            percent={((total / 1000) * 100).toString()}
+            strokeWidth="2"
+            strokeColor="#1E1E1E"
+            strokeLinecap="butt"
+            trailColor="#E3E3E3"
+            trailWidth="1"
+          />
+        </div>
       </div>
     );
   }

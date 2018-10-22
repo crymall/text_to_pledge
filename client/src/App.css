@@ -9,19 +9,39 @@
 }
 
 .App {
-  text-align: center;
   background-color: #4242ea;
 }
 
 h1 {
   font-family: "GraphikSemibold", sans-serif;
   font-color: "#1E1E1E";
+  font-size: 40px;
+}
+
+.header-area {
+  display: flex;
+  flex-direction: row;
+  padding-left: 6%;
+  padding-top: 25px;
 }
 
 h3 {
   font-family: "GraphikRegular", sans-serif;
+  font-size: 30px;
+  color: white;
+}
+
+.main-area {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .the-bar {
   width: 60%;
+}
+
+.lower-area {
+  display: flex;
+  justify-content: center;
 }
