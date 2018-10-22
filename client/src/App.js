@@ -30,7 +30,21 @@ class App extends Component {
   }
 
   render() {
-    const { total } = this.state;
+    const { total, pledges } = this.state;
+    let singlePledge;
+    let displayPledge;
+
+    if (pledges) {
+      singlePledge = pledges[Math.floor(Math.random() * pledges.length)];
+
+      displayPledge = (
+        <div className="single-pledge">
+          <h3>{singlePledge.text}</h3>
+          <h3>{singlePledge.amount}</h3>
+        </div>
+      );
+    }
+
     return (
       <div className="App">
         <div className="background-logo" />
@@ -42,7 +56,7 @@ class App extends Component {
           <div className="content-area">
             <h3> Welcome to the celebration </h3>
           </div>
-          <div className="donation-area" />
+          <div className="donation-area">{displayPledge}</div>
         </div>
 
         <div className="lower-area">
