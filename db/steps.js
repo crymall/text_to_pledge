@@ -46,7 +46,7 @@ const stepOne = msg => {
 
 const stepTwo = msg => {
   const intMsg = Number(msg.Body);
-  console.log("STEP TWO intMsg: ", intMsg);
+  console.log("STEP TWO intMsg: ", msg.Body);
   switch (intMsg) {
     case 1:
       handleDonation(msg);
