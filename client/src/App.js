@@ -14,6 +14,7 @@ class App extends Component {
 
   componentDidMount() {
     axios.get("/total").then(res => {
+      console.log(res);
       this.setState({
         total: res.total
       });
