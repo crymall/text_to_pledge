@@ -84,9 +84,12 @@ const updatePledge = async body => {
     });
 
   const pledge = await db
-    .one("SELECT * FROM sms_pledges WHERE sms_donor_id = ${id} LIMIT 1", {
-      id: donor.id
-    })
+    .one(
+      "SELECT * FROM sms_pledges WHERE sms_donor_id = ${id} ORDER BY created_at LIMIT 1",
+      {
+        id: donor.id
+      }
+    )
     .catch(err => {
       console.log(err);
     });

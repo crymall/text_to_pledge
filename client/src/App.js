@@ -39,7 +39,7 @@ class App extends Component {
 
       displayPledge = (
         <div className="single-pledge">
-          <h3>{singlePledge.text}</h3>
+          <h3>{singlePledge.message}</h3>
           <h3>{singlePledge.amount}</h3>
         </div>
       );
