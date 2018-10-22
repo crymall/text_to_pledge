@@ -32,6 +32,15 @@ class App extends Component {
   render() {
     const { total, pledges } = this.state;
     const goal = 10000;
+    const copyMessages = [
+      "Welcome to the celebration.",
+      "We're happy to see you here.",
+      "Help support another year of transormation.",
+      "Own your pursuit - and help others own theirs.",
+      "Help this to be a night to remember."
+    ];
+    const copyMessage =
+      copyMessages[Math.floor(Math.random() * copyMessages.length)];
     let totalPercent;
     let exceedMessage;
 
@@ -67,7 +76,7 @@ class App extends Component {
 
         <div className="main-area">
           <div className="content-area">
-            <h3> Welcome to the celebration </h3>
+            <h3> {copyMessage} </h3>
           </div>
           <div className="donation-area">{displayPledge}</div>
         </div>
