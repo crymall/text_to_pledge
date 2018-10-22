@@ -77,7 +77,7 @@ class App extends Component {
       <div className="App">
         <div className="header-area">
           <h1> PURSUIT BASH </h1>
-          <img src="./assets/logo-white.png" alt="" />
+          <div className="monogram" />
         </div>
 
         <div className="main-area">
