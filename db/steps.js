@@ -6,7 +6,7 @@ const db = require("./db_info");
 
 const stepOne = msg => {
   let splitMsg = msg.Body.split(" ").filter(el => {
-    return el !== "";
+    return el;
   });
   // message format: "FirstName LastName email@email.com" =>
   // splitMsg: [FirstName, LastName, email@email.com]
@@ -64,7 +64,7 @@ const stepTwo = msg => {
 
 const stepThree = msg => {
   db_actions
-    .add_pledge(msg)
+    .addPledge(msg)
     .then(() => {
       db.none("UPDATE sms_donors SET steps = 3 WHERE phone_number = ${phone}", {
         phone: msg.From
@@ -108,7 +108,7 @@ const stepFour = async msg => {
         );
       });
   } else {
-    const pledge_updated = await db_actions.update_pledge(msg).catch(() => {
+    const pledge_updated = await db_actions.updatePledge(msg).catch(() => {
       msg_actions.sendMsg(
         msg.From,
         "Sorry, something went wrong. Please try again."

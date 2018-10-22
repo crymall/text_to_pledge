@@ -9,11 +9,11 @@ const msg_actions = require("./msg_actions");
 const handleResponse = (req, res, next) => {
   // check if donor exists
   db_actions
-    .donor_exists(req.body.From)
+    .donorExists(req.body.From)
     .then(donor => {
       if (donor) {
         // insert text into db
-        db_actions.add_msg(req.body, donor).then(() => {
+        db_actions.addMsg(req.body, donor).then(() => {
           // take them through process of pledging
           switch (donor.steps) {
             case 0:
@@ -36,7 +36,7 @@ const handleResponse = (req, res, next) => {
         });
       } else {
         // if they don't already exist in db, create them
-        db_actions.create_donor(req.body);
+        db_actions.createDonor(req.body);
         res.status(200).send({ status: "OK" });
       }
     })
@@ -45,6 +45,28 @@ const handleResponse = (req, res, next) => {
     });
 };
 
+// FRONTEND FUNCTIONS
+
+const handleTotal = (req, res, next) => {
+  db_actions.getTotalAmount().then(total => {
+    res.status(200).send({
+      status: "OK",
+      total: total
+    });
+  });
+};
+
+const handlePledges = (req, res, next) => {
+  db_actions.getAllPledges().then(pledges => {
+    res.status(200).send({
+      status: "OK",
+      pledges: pledges
+    });
+  });
+};
+
 module.exports = {
-  handleResponse
+  handleResponse,
+  handleTotal,
+  handlePledges
 };

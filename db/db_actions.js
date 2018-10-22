@@ -1,7 +1,7 @@
 const db = require("./db_info");
 const msg_actions = require("./msg_actions");
 
-const donor_exists = phone => {
+const donorExists = phone => {
   return db
     .any("SELECT * FROM sms_donors WHERE phone_number = ${phone}", {
       phone: phone
@@ -15,7 +15,7 @@ const donor_exists = phone => {
     });
 };
 
-const create_donor = user => {
+const createDonor = user => {
   db.none(
     "INSERT INTO sms_donors (phone_number, steps) VALUES (${From}, 0)",
     user
@@ -34,7 +34,7 @@ const create_donor = user => {
     });
 };
 
-const add_msg = (body, donor) => {
+const addMsg = (body, donor) => {
   return db.none(
     "INSERT INTO sms_donor_messages(message, sms_sid, account_sid, sms_donor_id) VALUES (${message}, ${sms_id}, ${acct_id}, ${donor_id})",
     {
@@ -46,7 +46,7 @@ const add_msg = (body, donor) => {
   );
 };
 
-const add_pledge = async body => {
+const addPledge = async body => {
   const donor = await db
     .one("SELECT * FROM sms_donors WHERE phone_number = ${phone}", {
       phone: body.From
@@ -74,7 +74,7 @@ const add_pledge = async body => {
   return insertPledge;
 };
 
-const update_pledge = async body => {
+const updatePledge = async body => {
   const donor = await db
     .one("SELECT * FROM sms_donors WHERE phone_number = ${phone}", {
       phone: body.From
@@ -106,10 +106,24 @@ const update_pledge = async body => {
   return updatePledge;
 };
 
+const getTotalAmount = async () => {
+  const totalPledges = await db.one("SELECT SUM(amount) FROM sms_pledges");
+  return totalPledges;
+};
+
+const getAllPledges = async () => {
+  const allPledges = await db.any(
+    "SELECT * FROM sms_pledges WHERE message_present = true"
+  );
+  return allPledges;
+};
+
 module.exports = {
-  donor_exists,
-  create_donor,
-  add_msg,
-  add_pledge,
-  update_pledge
+  donorExists,
+  createDonor,
+  addMsg,
+  addPledge,
+  updatePledge,
+  getTotalAmount,
+  getAllPledges
 };
