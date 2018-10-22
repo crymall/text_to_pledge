@@ -42,7 +42,7 @@ class App extends Component {
           <h3>
             {singlePledge.name} donated ${singlePledge.amount}
           </h3>
-          <h3>{singlePledge.message}</h3>
+          <h3>"{singlePledge.message}"</h3>
         </div>
       );
     }
