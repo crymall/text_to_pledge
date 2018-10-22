@@ -9,7 +9,7 @@ class App extends Component {
     super();
     this.state = {
       total: 0,
-      pledges: {}
+      pledges: []
     };
   }
 
@@ -34,13 +34,15 @@ class App extends Component {
     let singlePledge;
     let displayPledge;
 
-    if (pledges !== {}) {
+    if (pledges.length) {
       singlePledge = pledges[Math.floor(Math.random() * pledges.length)];
 
       displayPledge = (
         <div className="single-pledge">
+          <h3>
+            {singlePledge.name} donated ${singlePledge.amount}
+          </h3>
           <h3>{singlePledge.message}</h3>
-          <h3>{singlePledge.amount}</h3>
         </div>
       );
     }
