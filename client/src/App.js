@@ -15,8 +15,6 @@ class App extends Component {
 
   componentDidMount() {
     getInfo();
-
-    setInterval(getInfo, 10000);
   }
 
   getInfo = () => {
@@ -32,11 +30,15 @@ class App extends Component {
             pledges: res.data.pledges
           });
         });
+      })
+      .then(() => {
+        setTimeout(getInfo, 10000);
       });
   };
 
   render() {
     const { total, pledges } = this.state;
+    console.log(pledges);
     const goal = 10000;
     const copyMessages = [
       "Welcome to the celebration.",
