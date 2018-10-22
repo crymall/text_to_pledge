@@ -84,7 +84,7 @@ class App extends Component {
           <div className="content-area">
             <h3> {copyMessage} </h3>
           </div>
-          <div className="donation-area">{displayPledge}</div>
+          <div className="pledge-area">{displayPledge}</div>
         </div>
 
         <div className="lower-area">
