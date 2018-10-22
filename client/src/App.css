@@ -8,6 +8,11 @@
   src: url("./assets/Graphik-Regular.otf") format("opentype");
 }
 
+@font-face {
+  font-family: RobotoMonoBold;
+  src: url("./assets/RobotoMono-Bold.ttf") format("truetype");
+}
+
 .App {
 }
 
@@ -43,6 +48,12 @@ h3 {
   margin-top: 5px;
 }
 
+h4 {
+  font-family: "RobotoMonoBold", sans-serif;
+  color: white;
+  font-size: 20px;
+}
+
 .main-area {
   padding-top: 100px;
   display: flex;
@@ -54,6 +65,8 @@ h3 {
 .single-pledge {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .the-bar {
@@ -67,12 +80,16 @@ h3 {
   margin-top: 50px;
 }
 
-.tic {
-  color: #edff00;
+.tic-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+}
+
+.tic-highlight {
+  font-family: GraphikSemibold, sans-serif;
+  color: #edff00;
 }
 
 .lower-area {

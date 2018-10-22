@@ -31,6 +31,18 @@ class App extends Component {
 
   render() {
     const { total, pledges } = this.state;
+    const goal = 10000;
+    let totalPercent;
+    let exceedMessage;
+
+    if (total >= goal) {
+      totalPercent = 100;
+      exceedMessage = `Total raised: $${total} !`;
+    } else {
+      totalPercent = (total / goal) * 100;
+    }
+
+    console.log(totalPercent);
     let singlePledge;
     let displayPledge;
 
@@ -42,7 +54,7 @@ class App extends Component {
           <h3>
             {singlePledge.name} donated ${singlePledge.amount}
           </h3>
-          <h3>"{singlePledge.message}"</h3>
+          <h4>"{singlePledge.message}"</h4>
         </div>
       );
     }
@@ -63,7 +75,7 @@ class App extends Component {
         <div className="lower-area">
           <Line
             className="the-bar"
-            percent={((total / 10000) * 100).toString()}
+            percent={totalPercent.toString()}
             strokeWidth="2"
             strokeColor="#1E1E1E"
             strokeLinecap="butt"
@@ -71,27 +83,40 @@ class App extends Component {
             trailWidth="1"
           />
           <div className="bar-tics">
-            <div className="tic">
-              <h3> | </h3>
-              <h3> 0 </h3>
+            <div className="tic-container">
+              <h3 className="tic"> | </h3>
+              <h3 className="tic-highlight"> 0 </h3>
             </div>
-            <div className="tic">
-              <h3> | </h3>
-              <h3> 2.5K </h3>
+            <div className="tic-container">
+              <h3 className="tic"> | </h3>
+              <h3 className={totalPercent >= 25 ? "tic-highlight" : "tic"}>
+                {" "}
+                2.5K{" "}
+              </h3>
             </div>
-            <div className="tic">
-              <h3> | </h3>
-              <h3> 5K </h3>
+            <div className="tic-container">
+              <h3 className="tic"> | </h3>
+              <h3 className={totalPercent >= 50 ? "tic-highlight" : "tic"}>
+                {" "}
+                5K{" "}
+              </h3>
             </div>
-            <div className="tic">
-              <h3> | </h3>
-              <h3> 7.5K </h3>
+            <div className="tic-container">
+              <h3 className="tic"> | </h3>
+              <h3 className={totalPercent >= 75 ? "tic-highlight" : "tic"}>
+                {" "}
+                7.5K{" "}
+              </h3>
             </div>
-            <div className="tic">
-              <h3> | </h3>
-              <h3> 10K </h3>
+            <div className="tic-container">
+              <h3 className="tic"> | </h3>
+              <h3 className={totalPercent >= 100 ? "tic-highlight" : "tic"}>
+                {" "}
+                10K{" "}
+              </h3>
             </div>
           </div>
+          <h3>{exceedMessage}</h3>
         </div>
       </div>
     );
