@@ -8,7 +8,6 @@ const stepOne = msg => {
   let splitMsg = msg.Body.split(" ").filter(el => {
     return el;
   });
-  console.log(splitMsg);
   // message format: "FirstName LastName email@email.com" =>
   // splitMsg: [FirstName, LastName, email@email.com]
   if (splitMsg.length === 3 || splitMsg.length === 4) {
@@ -47,6 +46,7 @@ const stepOne = msg => {
 
 const stepTwo = msg => {
   const intMsg = Number(msg.Body);
+  console.log("STEP TWO intMsg: ", intMsg);
   switch (intMsg) {
     case 1:
       handleDonation(msg);
@@ -64,6 +64,7 @@ const stepTwo = msg => {
 };
 
 const stepThree = msg => {
+  console.log("STEP 3 HERE IS msg ", msg);
   db_actions
     .addPledge(msg)
     .then(() => {
