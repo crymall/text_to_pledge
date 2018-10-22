@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import wordmark from "./assets/wordmark.png";
 import { Line } from "rc-progress";
 import "./App.css";
 
@@ -58,7 +57,6 @@ class App extends Component {
       totalPercent = (total / goal) * 100;
     }
 
-    console.log(totalPercent);
     let singlePledge;
     let displayPledge;
 
@@ -70,7 +68,7 @@ class App extends Component {
           <h3 className="pledge-title">
             {singlePledge.name} donated ${singlePledge.amount}
           </h3>
-          <h4>"{singlePledge.message}"</h4>
+          <h4 className="pledge-body">"{singlePledge.message}"</h4>
         </div>
       );
     }
@@ -79,6 +77,7 @@ class App extends Component {
       <div className="App">
         <div className="header-area">
           <h1> PURSUIT BASH </h1>
+          <img src="./assets/logo-white.png" alt="" />
         </div>
 
         <div className="main-area">

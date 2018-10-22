@@ -37,7 +37,9 @@ h1 {
 .header-area {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   padding-left: 6%;
+  padding-right: 6%;
   padding-top: 25px;
 }
 
@@ -71,6 +73,7 @@ h4 {
 
 .pledge-area {
   width: 50%;
+  text-align: center;
 }
 
 .single-pledge {
@@ -83,6 +86,11 @@ h4 {
   font-size: 25px;
   color: #edff00;
   padding-bottom: 5px;
+}
+
+.pledge-body {
+  text-align: center;
+  width: 70%;
 }
 
 .the-bar {
