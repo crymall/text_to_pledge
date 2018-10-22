@@ -32,13 +32,12 @@ class App extends Component {
         });
       })
       .then(() => {
-        setTimeout(this.getInfo, 10000);
+        setTimeout(this.getInfo, 20000);
       });
   };
 
   render() {
     const { total, pledges } = this.state;
-    console.log(pledges);
     const goal = 10000;
     const copyMessages = [
       "Welcome to the \n celebration.",

@@ -58,11 +58,19 @@ h4 {
 
 .main-area {
   width: 90%;
-  padding-top: 100px;
+  padding: 100px;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
   padding-bottom: 100px;
+}
+
+.content-area {
+  width: 50%;
+  text-align: center;
+}
+
+.pledge-area {
+  width: 50%;
 }
 
 .single-pledge {
@@ -74,7 +82,7 @@ h4 {
 .pledge-title {
   font-size: 25px;
   color: #edff00;
-  padding-bottom: 17px;
+  padding-bottom: 5px;
 }
 
 .the-bar {
