@@ -3,6 +3,11 @@
   src: url("./assets/Graphik-Semibold.otf") format("opentype");
 }
 
+@font-face {
+  font-family: GraphikRegular;
+  src: url("./assets/Graphik-Regular.otf") format("opentype");
+}
+
 .App {
   text-align: center;
   background-color: #4242ea;
@@ -11,6 +16,10 @@
 h1 {
   font-family: "GraphikSemibold", sans-serif;
   font-color: "#1E1E1E";
+}
+
+h3 {
+  font-family: "GraphikRegular", sans-serif;
 }
 
 .the-bar {

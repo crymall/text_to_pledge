@@ -14,9 +14,8 @@ class App extends Component {
 
   componentDidMount() {
     axios.get("/total").then(res => {
-      console.log(res);
       this.setState({
-        total: res.data.total
+        total: res.data.total.sum
       });
     });
   }
@@ -25,7 +24,10 @@ class App extends Component {
     const { total } = this.state;
     return (
       <div className="App">
-        <h1>PURSUIT BASH</h1>
+        <h1> PURSUIT BASH </h1>
+
+        <h3> Welcome to the celebration </h3>
+
         <Line
           className="the-bar"
           percent={((total / 1000) * 100).toString()}
