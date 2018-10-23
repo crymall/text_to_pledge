@@ -75,6 +75,9 @@ h4 {
 .pledge-area {
   width: 70%;
   text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .single-pledge {
