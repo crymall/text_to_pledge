@@ -24,10 +24,7 @@ const stepOne = msg => {
       info
     )
       .then(res => {
-        msg_actions.sendMsg(
-          msg.From,
-          "Thank you. Please reply 1 to pledge cash, 2 to pledge volunteering, or 3 to pledge both."
-        );
+        msg_actions.sendMsg(msg.From, "Thank you. Please reply '1' to pledge.");
       })
       .catch(err => {
         msg_actions.sendMsg(
@@ -45,26 +42,24 @@ const stepOne = msg => {
 };
 
 const stepTwo = msg => {
-  const intMsg = Number(msg.Body);
-  console.log("STEP TWO intMsg: ", msg.Body);
-  switch (intMsg) {
-    case 1:
-      handleDonation(msg);
-      break;
-    case 2:
-      handleVolunteering(msg);
-      break;
-    case 3:
-      handleBoth(msg);
-      break;
-    default:
-      msg_actions.sendMsg(msg.From, "Sorry, please input a valid number.");
-      break;
-  }
+  db.any("UPDATE sms_donors SET steps = 2 WHERE phone_number = ${phone}", {
+    phone: msg.From
+  })
+    .then(() => {
+      msg_actions.sendMsg(
+        msg.From,
+        "Thanks for pledging! Please reply with the amount you'd like to pledge."
+      );
+    })
+    .catch(() => {
+      msg_actions.sendMsg(
+        msg.From,
+        "Sorry, something went wrong. Please try again."
+      );
+    });
 };
 
 const stepThree = msg => {
-  console.log("STEP 3 HERE IS msg ", msg);
   db_actions
     .addPledge(msg)
     .then(() => {
@@ -136,71 +131,70 @@ const stepFour = async msg => {
   }
 };
 
-// HANDLER ACTIONS
-
-const handleDonation = msg => {
-  db.any("UPDATE sms_donors SET steps = 2 WHERE phone_number = ${phone}", {
-    phone: msg.From
-  })
-    .then(() => {
-      msg_actions.sendMsg(
-        msg.From,
-        "Thanks for pledging! Please reply with the amount you'd like to pledge."
-      );
-    })
-    .catch(() => {
-      msg_actions.sendMsg(
-        msg.From,
-        "Sorry, something went wrong. Please try again."
-      );
-    });
-};
-
-const handleVolunteering = msg => {
-  db.any(
-    "UPDATE sms_donors SET steps = 1, volunteer = true WHERE phone_number = ${phone}",
-    {
-      phone: msg.From
-    }
-  )
-    .then(() => {
-      msg_actions.sendMsg(
-        msg.From,
-        "Thanks for offering to volunteer! We'll be in touch. If you'd like to pledge money later, please reply with 1."
-      );
-    })
-    .catch(() => {
-      msg_actions.sendMsg(
-        msg.From,
-        "Sorry, something went wrong. Please try again."
-      );
-    });
-};
-
-const handleBoth = msg => {
-  db.any(
-    "UPDATE sms_donors SET steps = 2, volunteer = true WHERE phone_number = ${phone}",
-    {
-      phone: msg.From
-    }
-  )
-    .then(() => {
-      msg_actions.sendMsg(
-        msg.From,
-        "Thanks for volunteering and pledging! We'll be in touch. Please reply with the amount you'd like to pledge."
-      );
-    })
-    .catch(() => {
-      msg_actions.sendMsg(
-        msg.From,
-        "Sorry, something went wrong. Please try again."
-      );
-    });
-};
-
 module.exports = {
   stepOne,
   stepTwo,
   stepThree,
   stepFour
 };
+
+// const stepTwo = msg => {
+//   const intMsg = Number(msg.Body);
+//   console.log("STEP TWO intMsg: ", msg.Body);
+//   switch (intMsg) {
+//     case 1:
+//       handleDonation(msg);
+//       break;
+//     case 2:
+//       handleVolunteering(msg);
+//       break;
+//     case 3:
+//       handleBoth(msg);
+//       break;
+//     default:
+//       msg_actions.sendMsg(msg.From, "Sorry, please input a valid number.");
+//       break;
+//   }
+// };
+
+// const handleVolunteering = msg => {
+//   db.any(
+//     "UPDATE sms_donors SET steps = 1, volunteer = true WHERE phone_number = ${phone}",
+//     {
+//       phone: msg.From
+//     }
+//   )
+//     .then(() => {
+//       msg_actions.sendMsg(
+//         msg.From,
+//         "Thanks for offering to volunteer! We'll be in touch. If you'd like to pledge money later, please reply with 1."
+//       );
+//     })
+//     .catch(() => {
+//       msg_actions.sendMsg(
+//         msg.From,
+//         "Sorry, something went wrong. Please try again."
+//       );
+//     });
+// };
+
+// const handleBoth = msg => {
+//   db.any(
+//     "UPDATE sms_donors SET steps = 2, volunteer = true WHERE phone_number = ${phone}",
+//     {
+//       phone: msg.From
+//     }
+//   )
+//     .then(() => {
+//       msg_actions.sendMsg(
+//         msg.From,
+//         "Thanks for volunteering and pledging! We'll be in touch. Please reply with the amount you'd like to pledge."
+//       );
+//     })
+//     .catch(() => {
+//       msg_actions.sendMsg(
+//         msg.From,
+//         "Sorry, something went wrong. Please try again."
+//       );
+//     });
+// };
