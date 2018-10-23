@@ -38,15 +38,6 @@ class App extends Component {
   render() {
     const { total, pledges } = this.state;
     const goal = 10000;
-    const copyMessages = [
-      "Welcome to the \n celebration.",
-      "We're happy \n to see you here.",
-      "Help support another year \n of transformation.",
-      "Own your pursuit - \n and help others own theirs.",
-      "Help this to be \n a night to remember."
-    ];
-    const copyMessage =
-      copyMessages[Math.floor(Math.random() * copyMessages.length)];
     let totalPercent;
     let exceedMessage;
 
@@ -57,18 +48,58 @@ class App extends Component {
       totalPercent = (total / goal) * 100;
     }
 
-    let singlePledge;
-    let displayPledge;
+    let randomPledge;
+    let randomFormattedPledge;
+    let largestPledge;
+    let largestFormattedPledge;
+    let recentPledge;
+    let recentFormattedPledge;
 
     if (pledges.length) {
-      singlePledge = pledges[Math.floor(Math.random() * pledges.length)];
+      randomPledge = pledges[Math.floor(Math.random() * pledges.length)];
 
-      displayPledge = (
+      randomFormattedPledge = (
         <div className="single-pledge">
           <h3 className="pledge-title">
-            {singlePledge.name} donated ${singlePledge.amount}
+            {randomPledge.name} donated ${randomPledge.amount}
           </h3>
-          <h4 className="pledge-body">"{singlePledge.message}"</h4>
+          {randomPledge.message ? (
+            <h4 className="pledge-body">"{randomPledge.message}"</h4>
+          ) : (
+            ""
+          )}
+        </div>
+      );
+
+      largestPledge = pledges.reduce((acc, el) => {
+        return el > acc ? el : acc;
+      });
+
+      largestFormattedPledge = (
+        <div className="single-pledge">
+          <h3 className="pledge-title">
+            {largestPledge.name} donated ${largestPledge.amount}
+          </h3>
+          {largestPledge.message ? (
+            <h4 className="pledge-body">"{largestPledge.message}"</h4>
+          ) : (
+            ""
+          )}
+        </div>
+      );
+
+      recentPledge = pledges[pledges.length - 1];
+
+      recentFormattedPledge = (
+        <div className="single-pledge">
+          <h3 className="pledge-title">
+            {recentPledge.name} donated ${recentPledge.amount}
+          </h3>
+          {recentPledge.message ? (
+            <h4 className="pledge-body">"{recentPledge.message}"</h4>
+          ) : (
+            ""
+          )}
         </div>
       );
     }
@@ -82,9 +113,13 @@ class App extends Component {
 
         <div className="main-area">
           <div className="content-area">
-            <h3> {copyMessage} </h3>
+            <h3>Text "hi" to (347) 527-4222 to make a pledge</h3>
           </div>
-          <div className="pledge-area">{displayPledge}</div>
+          <div className="pledge-area">
+            {largestFormattedPledge}
+            {recentFormattedPledge}
+            {randomFormattedPledge}
+          </div>
         </div>
 
         <div className="lower-area">
