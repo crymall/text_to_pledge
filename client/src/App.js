@@ -62,7 +62,7 @@ class App extends Component {
         <div className="single-pledge">
           <h3 className="pledge-category">Random Pledge:</h3>
           <h3 className="pledge-title">
-            {randomPledge.name} donated ${randomPledge.amount}
+            {randomPledge.name} pledged ${randomPledge.amount}
           </h3>
           {randomPledge.message ? (
             <h4 className="pledge-body">"{randomPledge.message}"</h4>
@@ -80,7 +80,7 @@ class App extends Component {
         <div className="single-pledge">
           <h3 className="pledge-category">Largest Pledge:</h3>
           <h3 className="pledge-title">
-            {largestPledge.name} donated ${largestPledge.amount}
+            {largestPledge.name} pledged ${largestPledge.amount}
           </h3>
           {largestPledge.message ? (
             <h4 className="pledge-body">"{largestPledge.message}"</h4>
@@ -96,7 +96,7 @@ class App extends Component {
         <div className="single-pledge">
           <h3 className="pledge-category">Most Recent Pledge:</h3>
           <h3 className="pledge-title">
-            {recentPledge.name} donated ${recentPledge.amount}
+            {recentPledge.name} pledged ${recentPledge.amount}
           </h3>
           {recentPledge.message ? (
             <h4 className="pledge-body">"{recentPledge.message}"</h4>
