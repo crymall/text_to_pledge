@@ -60,6 +60,7 @@ class App extends Component {
 
       randomFormattedPledge = (
         <div className="single-pledge">
+          <h3>Random Pledge</h3>
           <h3 className="pledge-title">
             {randomPledge.name} donated ${randomPledge.amount}
           </h3>
@@ -77,6 +78,7 @@ class App extends Component {
 
       largestFormattedPledge = (
         <div className="single-pledge">
+          <h3>Largest Pledge:</h3>
           <h3 className="pledge-title">
             {largestPledge.name} donated ${largestPledge.amount}
           </h3>
@@ -92,6 +94,7 @@ class App extends Component {
 
       recentFormattedPledge = (
         <div className="single-pledge">
+          <h3>Most Recent Pledge:</h3>
           <h3 className="pledge-title">
             {recentPledge.name} donated ${recentPledge.amount}
           </h3>
