@@ -67,7 +67,7 @@ class App extends Component {
           {randomPledge.message ? (
             <h4 className="pledge-body">"{randomPledge.message}"</h4>
           ) : (
-            ""
+            <h4 className="pledge-body">Thank You</h4>
           )}
         </div>
       );
@@ -85,7 +85,7 @@ class App extends Component {
           {largestPledge.message ? (
             <h4 className="pledge-body">"{largestPledge.message}"</h4>
           ) : (
-            ""
+            <h4 className="pledge-body">Thank You</h4>
           )}
         </div>
       );
@@ -101,7 +101,7 @@ class App extends Component {
           {recentPledge.message ? (
             <h4 className="pledge-body">"{recentPledge.message}"</h4>
           ) : (
-            ""
+            <h4 className="pledge-body">Thank You</h4>
           )}
         </div>
       );
