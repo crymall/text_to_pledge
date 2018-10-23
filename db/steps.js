@@ -119,7 +119,7 @@ const stepFour = async msg => {
       .then(() => {
         msg_actions.sendMsg(
           msg.From,
-          "Thanks so much! Please reply with '1' to donate again."
+          "Thanks so much! Please reply with '1' to pledge again."
         );
       })
       .catch(() => {
