@@ -64,12 +64,15 @@ h4 {
   padding-bottom: 100px;
   display: flex;
   flex-direction: row;
-  padding-bottom: 100px;
 }
 
 .content-area {
   width: 30%;
   text-align: center;
+}
+
+.pledge-instructions {
+  padding-left: 30px;
 }
 
 .pledge-area {
@@ -84,6 +87,7 @@ h4 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-left: 20px;
 }
 
 .pledge-title {

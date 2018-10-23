@@ -113,7 +113,9 @@ class App extends Component {
 
         <div className="main-area">
           <div className="content-area">
-            <h3>Text "hi" to (347) 527-4222 to make a pledge</h3>
+            <h3 className="pledge-instructions">
+              Text "hi" to (347) 527-4222 to make a pledge
+            </h3>
           </div>
           <div className="pledge-area">
             {largestFormattedPledge}
