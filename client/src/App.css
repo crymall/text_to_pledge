@@ -92,6 +92,7 @@ h4 {
   flex-direction: column;
   align-items: center;
   margin-left: 20px;
+  width: 290px;
   border: solid 2px "#1E1E1E";
 }
 
@@ -99,6 +100,7 @@ h4 {
   color: "#1E1E1E";
   font-family: RobotoMonoBold, sans-serif;
   font-size: 20px;
+  padding-top: 10px;
 }
 
 .pledge-title {
