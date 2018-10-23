@@ -73,7 +73,7 @@ class App extends Component {
       );
 
       largestPledge = pledges.reduce((acc, el) => {
-        return el > acc ? el : acc;
+        return el.amount > acc.amount ? el : acc;
       });
 
       largestFormattedPledge = (
