@@ -2,47 +2,60 @@ const db = require("./db_info");
 const steps = require("./steps");
 const db_actions = require("./db_actions");
 const msg_actions = require("./msg_actions");
+const bad = require("./badwords");
 
 // ROUTING FUNCTIONS
 
 // handleResponse contains all of the routing logic for responding to donors' messages.
 const handleResponse = (req, res, next) => {
+  let message = req.body.Body;
+  let splitMsg = message.split(" ").filter(el => {
+    return el;
+  });
+  let noBadWords = splitMsg.every(el => {
+    return !bad.badWords[el.toLowerCase] && el.length < 30;
+  });
   // check if donor exists
-  db_actions
-    .donorExists(req.body.From)
-    .then(donor => {
-      if (donor) {
-        // insert text into db
-        db_actions.addMsg(req.body, donor).then(() => {
-          // take them through process of pledging
-          switch (donor.steps) {
-            case 0:
-              steps.stepOne(req.body);
-              break;
-            case 1:
-              steps.stepTwo(req.body);
-              break;
-            case 2:
-              steps.stepThree(req.body);
-              break;
-            case 3:
-              steps.stepFour(req.body);
-              break;
-            default:
-              console.log(err);
-              break;
-          }
+  if (noBadWords && message.length < 140) {
+    db_actions
+      .donorExists(req.body.From)
+      .then(donor => {
+        if (donor) {
+          // insert text into db
+          db_actions.addMsg(req.body, donor).then(() => {
+            // take them through process of pledging
+            switch (donor.steps) {
+              case 0:
+                steps.stepOne(req.body);
+                break;
+              case 1:
+                steps.stepTwo(req.body);
+                break;
+              case 2:
+                steps.stepThree(req.body);
+                break;
+              case 3:
+                steps.stepFour(req.body);
+                break;
+              default:
+                console.log(err);
+                break;
+            }
+            res.status(200).send({ status: "OK" });
+          });
+        } else {
+          // if they don't already exist in db, create them
+          db_actions.createDonor(req.body);
           res.status(200).send({ status: "OK" });
-        });
-      } else {
-        // if they don't already exist in db, create them
-        db_actions.createDonor(req.body);
-        res.status(200).send({ status: "OK" });
-      }
-    })
-    .catch(err => {
-      console.log(err);
-    });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  } else {
+    msg.actions.sendMsg(req.body.From, "Sorry, please try again.");
+    res.status(200).send({ status: "OK" });
+  }
 };
 
 // FRONTEND FUNCTIONS
