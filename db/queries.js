@@ -15,6 +15,8 @@ const handleResponse = (req, res, next) => {
   let noBadWords = splitMsg.every(el => {
     return !bad.badWords[el.toLowerCase] && el.length < 30;
   });
+
+  console.log(message, splitMsg, noBadWords);
   // check if donor exists
   if (noBadWords && message.length < 140) {
     db_actions
