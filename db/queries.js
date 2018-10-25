@@ -2,20 +2,18 @@ const db = require("./db_info");
 const steps = require("./steps");
 const db_actions = require("./db_actions");
 const msg_actions = require("./msg_actions");
-const bad = require("./badwords");
+const badWord = require("./badwords");
 
 // ROUTING FUNCTIONS
 
 // handleResponse contains all of the routing logic for responding to donors' messages.
 const handleResponse = (req, res, next) => {
   let message = req.body.Body;
-  console.log(message);
   let splitMsg = message.split(" ").filter(el => {
     return el;
   });
   let noBadWords = splitMsg.every(el => {
-    console.log(el);
-    return !bad.badWords[el.toLowerCase()] && el.length < 30;
+    return !badWords[el.toLowerCase()] && el.length < 30;
   });
 
   console.log(message, splitMsg, noBadWords);
