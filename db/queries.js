@@ -55,7 +55,7 @@ const handleResponse = (req, res, next) => {
         console.log(err);
       });
   } else {
-    msg.actions.sendMsg(req.body.From, "Sorry, please try again.");
+    msg_actions.sendMsg(req.body.From, "Sorry, please try again.");
     res.status(200).send({ status: "OK" });
   }
 };
