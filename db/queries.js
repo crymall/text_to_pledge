@@ -2,7 +2,7 @@ const db = require("./db_info");
 const steps = require("./steps");
 const db_actions = require("./db_actions");
 const msg_actions = require("./msg_actions");
-const badWord = require("./badwords");
+const badWords = require("./badwords");
 
 // ROUTING FUNCTIONS
 
