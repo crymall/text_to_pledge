@@ -9,11 +9,13 @@ const bad = require("./badwords");
 // handleResponse contains all of the routing logic for responding to donors' messages.
 const handleResponse = (req, res, next) => {
   let message = req.body.Body;
+  console.log(message);
   let splitMsg = message.split(" ").filter(el => {
     return el;
   });
   let noBadWords = splitMsg.every(el => {
-    return !bad.badWords[el.toLowerCase] && el.length < 30;
+    console.log(el);
+    return !bad.badWords[el.toLowerCase()] && el.length < 30;
   });
 
   console.log(message, splitMsg, noBadWords);
