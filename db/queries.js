@@ -41,14 +41,12 @@ const handleResponse = async (req, res, next) => {
     });
   } else {
     // if they don't already exist in db, create them
-    db_actions.createDonor(req.body).then(() => {
-      db_actions.addPledge(req.body).then(() => {
-        msg_actions.sendMsg(
-          req.body.From,
-          "Thank you for your generous pledge in support of Pursuit's mission. What's your full name? (In this format: Firstname Lastname)"
-        );
-      });
-    });
+    let created = await db_actions.createDonor(req.body);
+    let added = await db_actions.addPledge(req.body);
+    msg_actions.sendMsg(
+      req.body.From,
+      "Thank you for your generous pledge in support of Pursuit's mission. What's your full name? (In this format: Firstname Lastname)"
+    );
     res.status(200).send({ status: "OK" });
   }
 };
