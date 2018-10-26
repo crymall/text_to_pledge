@@ -21,10 +21,7 @@ const createDonor = user => {
     user
   )
     .then(res => {
-      msg_actions.sendMsg(
-        user.From,
-        "Hey there! Please reply with your name and email address, without punctuation, in this format: FirstName LastName email@email.com"
-      );
+      return user;
     })
     .catch(err => {
       msg_actions.sendMsg(

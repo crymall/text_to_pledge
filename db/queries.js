@@ -15,8 +15,6 @@ const handleResponse = (req, res, next) => {
   let noBadWords = splitMsg.every(el => {
     return !badWords[el.toLowerCase()] && el.length < 30;
   });
-
-  console.log(message, splitMsg, noBadWords);
   // check if donor exists
   if (noBadWords && message.length < 140) {
     db_actions
@@ -36,9 +34,6 @@ const handleResponse = (req, res, next) => {
               case 2:
                 steps.stepThree(req.body);
                 break;
-              case 3:
-                steps.stepFour(req.body);
-                break;
               default:
                 console.log(err);
                 break;
@@ -47,7 +42,14 @@ const handleResponse = (req, res, next) => {
           });
         } else {
           // if they don't already exist in db, create them
-          db_actions.createDonor(req.body);
+          db_actions.createDonor(req.body).then(() => {
+            db_actions.addPledge(req.body).then(() => {
+              msg_actions.sendMsg(
+                req.body.From,
+                "Thank you for your generous pledge in support of Pursuit's mission. What's your full name? (In this format: Firstname Lastname)"
+              );
+            });
+          });
           res.status(200).send({ status: "OK" });
         }
       })
