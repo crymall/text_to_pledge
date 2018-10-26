@@ -17,9 +17,9 @@ const handleResponse = async (req, res, next) => {
   });
 
   let donorExists = await db_actions.donorExists(req.body.From);
-  console.log("DONOR EXISTS: ", donorExists);
+
   // check if donor exists
-  if (noBadWords && message.length < 140 && donorExists.length) {
+  if (noBadWords && message.length < 140 && donorExists) {
     // insert text into db
     db_actions.addMsg(req.body, donor).then(() => {
       // take them through process of pledging
