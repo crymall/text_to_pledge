@@ -24,6 +24,7 @@ const createDonor = user => {
       return user;
     })
     .catch(err => {
+      console.log(err);
       msg_actions.sendMsg(
         user.From,
         "Sorry, something went wrong. Please try again."
