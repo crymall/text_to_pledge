@@ -21,7 +21,7 @@ const handleResponse = async (req, res, next) => {
   // check if donor exists
   if (noBadWords && message.length < 140 && donorExists) {
     // insert text into db
-    db_actions.addMsg(req.body, donor).then(() => {
+    db_actions.addMsg(req.body, donorExists[0]).then(() => {
       // take them through process of pledging
       switch (donor.steps) {
         case 0:
