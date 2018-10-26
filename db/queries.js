@@ -23,7 +23,7 @@ const handleResponse = async (req, res, next) => {
     // insert text into db
     db_actions.addMsg(req.body, donorExists).then(() => {
       // take them through process of pledging
-      switch (donor.steps) {
+      switch (donorExists.steps) {
         case 0:
           steps.stepOne(req.body);
           break;
