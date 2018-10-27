@@ -60,7 +60,7 @@ class App extends Component {
 
       randomFormattedPledge = (
         <div className="single-pledge">
-          <h3 className="pledge-category">Random Pledge:</h3>
+          <h3 className="pledge-category">All Pledges:</h3>
           <h3 className="pledge-title">
             {randomPledge.name} pledged ${randomPledge.amount}
           </h3>
@@ -117,7 +117,7 @@ class App extends Component {
         <div className="main-area">
           <div className="content-area">
             <h3 className="pledge-instructions">
-              Text "hi" to (347) 527-4222 to make a pledge
+              Text an amount to (347) 527-4222 to make a pledge
             </h3>
           </div>
           <div className="pledge-area">
