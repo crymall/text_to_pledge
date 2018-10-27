@@ -37,7 +37,7 @@ class App extends Component {
 
   render() {
     const { total, pledges } = this.state;
-    const goal = 10000;
+    const goal = 75000;
     let totalPercent;
     let exceedMessage;
 
@@ -146,28 +146,28 @@ class App extends Component {
               <h3 className="tic"> | </h3>
               <h3 className={totalPercent >= 25 ? "tic-highlight" : "tic"}>
                 {" "}
-                2.5K{" "}
+                18K{" "}
               </h3>
             </div>
             <div className="tic-container">
               <h3 className="tic"> | </h3>
               <h3 className={totalPercent >= 50 ? "tic-highlight" : "tic"}>
                 {" "}
-                5K{" "}
+                37.5K{" "}
               </h3>
             </div>
             <div className="tic-container">
               <h3 className="tic"> | </h3>
               <h3 className={totalPercent >= 75 ? "tic-highlight" : "tic"}>
                 {" "}
-                7.5K{" "}
+                56K{" "}
               </h3>
             </div>
             <div className="tic-container">
               <h3 className="tic"> | </h3>
               <h3 className={totalPercent >= 100 ? "tic-highlight" : "tic"}>
                 {" "}
-                10K{" "}
+                75K{" "}
               </h3>
             </div>
           </div>

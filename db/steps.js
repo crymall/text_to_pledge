@@ -42,17 +42,15 @@ const stepOne = msg => {
   }
 };
 
-const stepTwo = msg => {
-  let test = validateEmail(msg.Body);
+const stepTwo = async msg => {
+  const donor = await db_actions.donorExists(msg);
 
-  if (test) {
-    db.any(
-      "UPDATE sms_donors SET steps = 2, email = ${email} WHERE phone_number = ${phone}",
-      {
-        phone: msg.From,
-        email: msg.Body
-      }
-    )
+  if (donor.email) {
+    const pledge = await db_actions.addPledge(msg);
+
+    db.any("UPDATE sms_donors SET steps = 2 WHERE phone_number = ${phone}", {
+      phone: msg.From
+    })
       .then(() => {
         msg_actions.sendMsg(
           msg.From,
@@ -66,7 +64,31 @@ const stepTwo = msg => {
         );
       });
   } else {
-    msg_actions.sendMsg(msg.From, "Please reply with a valid email.");
+    let test = validateEmail(msg.Body);
+
+    if (test) {
+      db.any(
+        "UPDATE sms_donors SET steps = 2, email = ${email} WHERE phone_number = ${phone}",
+        {
+          phone: msg.From,
+          email: msg.Body
+        }
+      )
+        .then(() => {
+          msg_actions.sendMsg(
+            msg.From,
+            "What inspired you tonight? This response will be displayed to the audience. If you don't want to include a message with your pledge, please reply 'no'."
+          );
+        })
+        .catch(() => {
+          msg_actions.sendMsg(
+            msg.From,
+            "Sorry, something went wrong. Please try again."
+          );
+        });
+    } else {
+      msg_actions.sendMsg(msg.From, "Please reply with a valid email.");
+    }
   }
 };
 
@@ -78,7 +100,7 @@ const stepThree = async msg => {
       .then(() => {
         msg_actions.sendMsg(
           msg.From,
-          "Thanks so much! Please reply with '1' to donate again."
+          "Thanks again for your pledge. If you would like to make an additional pledge, please reply with the amount of your additional pledge."
         );
       })
       .catch(() => {
@@ -102,7 +124,7 @@ const stepThree = async msg => {
       .then(() => {
         msg_actions.sendMsg(
           msg.From,
-          "Thanks so much! Please reply with another amount to pledge again."
+          "Thanks again for your pledge. If you would like to make an additional pledge, please reply with the amount of your additional pledge."
         );
       })
       .catch(() => {
