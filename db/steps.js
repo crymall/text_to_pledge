@@ -46,23 +46,30 @@ const stepTwo = async msg => {
   const donor = await db_actions.donorExists(msg);
 
   if (donor.email) {
-    const pledge = await db_actions.addPledge(msg);
+    if (parseFloat(Number(msg.Body.replace(/[^0-9.-]+/g, "")))) {
+      const pledge = await db_actions.addPledge(msg);
 
-    db.any("UPDATE sms_donors SET steps = 2 WHERE phone_number = ${phone}", {
-      phone: msg.From
-    })
-      .then(() => {
-        msg_actions.sendMsg(
-          msg.From,
-          "What inspired you tonight? This response will be displayed to the audience. If you don't want to include a message with your pledge, please reply 'no'."
-        );
+      db.any("UPDATE sms_donors SET steps = 2 WHERE phone_number = ${phone}", {
+        phone: msg.From
       })
-      .catch(() => {
-        msg_actions.sendMsg(
-          msg.From,
-          "Sorry, something went wrong. Please try again."
-        );
-      });
+        .then(() => {
+          msg_actions.sendMsg(
+            msg.From,
+            "What inspired you tonight? This response will be displayed to the audience. If you don't want to include a message with your pledge, please reply 'no'."
+          );
+        })
+        .catch(() => {
+          msg_actions.sendMsg(
+            msg.From,
+            "Sorry, something went wrong. Please try again."
+          );
+        });
+    } else {
+      msg_actions.sendMsg(
+        msg.From,
+        "Sorry, something went wrong. Please make sure you enter a valid pledge amount."
+      );
+    }
   } else {
     let test = validateEmail(msg.Body);
 
