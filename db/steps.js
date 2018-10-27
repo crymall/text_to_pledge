@@ -43,7 +43,7 @@ const stepOne = msg => {
 };
 
 const stepTwo = async msg => {
-  const donor = await db_actions.donorExists(msg);
+  const donor = await db_actions.donorExists(msg.From);
 
   if (donor.email) {
     if (parseFloat(Number(msg.Body.replace(/[^0-9.-]+/g, "")))) {
