@@ -10,7 +10,7 @@ class PledgeBack extends Component {
     };
   }
   sendBlast = () => {
-    if (steps === 1) {
+    if (this.state.steps === 1) {
       axios.get("/blast").then(() => {
         this.setState({
           steps: 0,
