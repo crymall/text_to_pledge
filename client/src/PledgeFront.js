@@ -3,7 +3,7 @@ import axios from "axios";
 import { Line } from "rc-progress";
 import "./App.css";
 
-class App extends Component {
+class PledgeFront extends Component {
   constructor() {
     super();
     this.state = {
@@ -178,4 +178,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default PledgeFront;

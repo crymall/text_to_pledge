@@ -78,8 +78,24 @@ const handlePledges = (req, res, next) => {
   });
 };
 
+const sendBlast = async (req, res, next) => {
+  const numbers = await db.any("SELECT phone_number FROM sms_donors");
+
+  numbers.forEach(num => {
+    msg_actions.sendMsg(
+      num,
+      "Thanks so much for contributing! Please consider volunteering as well."
+    );
+  });
+
+  res.status(200).send({
+    status: "OK"
+  });
+};
+
 module.exports = {
   handleResponse,
   handleTotal,
-  handlePledges
+  handlePledges,
+  sendBlast
 };
