@@ -80,7 +80,7 @@ const handlePledges = (req, res, next) => {
 
 const sendBlast = async (req, res, next) => {
   const numbers = await db.any("SELECT phone_number FROM sms_donors");
-
+  console.log("NUMBERS ", numbers);
   numbers.forEach(num => {
     msg_actions.sendMsg(
       num,

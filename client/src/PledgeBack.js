@@ -11,12 +11,19 @@ class PledgeBack extends Component {
   }
   sendBlast = () => {
     if (this.state.steps === 1) {
-      axios.get("/blast").then(() => {
-        this.setState({
-          steps: 0,
-          msg: "Message Sent"
+      axios
+        .get("/blast")
+        .then(() => {
+          this.setState({
+            steps: 0,
+            msg: "Message Sent"
+          });
+        })
+        .catch(err => {
+          this.setState({
+            msg: err
+          });
         });
-      });
     } else {
       this.setState({
         steps: 1,
