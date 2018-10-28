@@ -34,8 +34,10 @@ class PledgeBack extends Component {
 
   render() {
     return (
-      <div>
-        <button onClick={this.sendBlast}>SEND MESSAGE</button>
+      <div className="backend-area">
+        <button className="send-button" onClick={this.sendBlast}>
+          SEND MESSAGE
+        </button>
         <h3>{this.state.msg}</h3>
       </div>
     );
