@@ -83,7 +83,7 @@ const sendBlast = async (req, res, next) => {
   console.log("NUMBERS ", numbers);
   numbers.forEach(num => {
     msg_actions.sendMsg(
-      num,
+      num.phone_number,
       "Thanks so much for contributing! Please consider volunteering as well."
     );
   });
