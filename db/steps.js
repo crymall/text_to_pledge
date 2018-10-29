@@ -100,7 +100,7 @@ const stepTwo = async msg => {
 };
 
 const stepThree = async msg => {
-  if (msg.Body.toLowerCase() === "no") {
+  if (msg.Body.toLowerCase() === "no" || "no.") {
     db.none(
       "UPDATE sms_donors SET steps = 1, message_present = true WHERE phone_number = ${phone}",
       {
