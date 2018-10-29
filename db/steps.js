@@ -101,9 +101,12 @@ const stepTwo = async msg => {
 
 const stepThree = async msg => {
   if (msg.Body.toLowerCase() === "no") {
-    db.none("UPDATE sms_donors SET steps = 1 WHERE phone_number = ${phone}", {
-      phone: msg.From
-    })
+    db.none(
+      "UPDATE sms_donors SET steps = 1, message_present = true WHERE phone_number = ${phone}",
+      {
+        phone: msg.From
+      }
+    )
       .then(() => {
         msg_actions.sendMsg(
           msg.From,
