@@ -15,21 +15,20 @@ const donorExists = phone => {
     });
 };
 
-const createDonor = user => {
-  db.none(
-    "INSERT INTO sms_donors (phone_number, steps) VALUES (${From}, 0)",
-    user
-  )
-    .then(res => {
-      return user;
-    })
+const createDonor = async user => {
+  const user_inserted = await db
+    .none(
+      "INSERT INTO sms_donors (phone_number, steps) VALUES (${From}, 0)",
+      user
+    )
     .catch(err => {
-      console.log(err);
       msg_actions.sendMsg(
         user.From,
-        "Sorry, something went wrong. Please try again."
+        "Sorry, we were unable to create your user profile. Please try again with the same dollar amount."
       );
     });
+
+  return user_inserted;
 };
 
 const addMsg = (body, donor) => {
@@ -52,7 +51,7 @@ const addPledge = async body => {
     .catch(() => {
       msg_actions.sendMsg(
         body.From,
-        "Sorry, something went wrong. Please try again."
+        "Sorry, something went wrong. Please wait a minute, then try again."
       );
     });
 
@@ -114,7 +113,7 @@ const getTotalAmount = async () => {
 
 const getAllPledges = async () => {
   const allPledges = await db.any(
-    "SELECT * FROM sms_pledges JOIN sms_donors ON sms_pledges.sms_donor_id = sms_donors.id"
+    "SELECT * FROM sms_pledges JOIN sms_donors ON sms_pledges.sms_donor_id = sms_donors.id WHERE sms_donors.name IS NOT NULL"
   );
   return allPledges;
 };
