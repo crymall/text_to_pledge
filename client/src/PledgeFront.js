@@ -31,7 +31,7 @@ class PledgeFront extends Component {
         });
       })
       .then(() => {
-        setTimeout(this.getInfo, 20000);
+        setTimeout(this.getInfo, 5000);
       });
   };
 
