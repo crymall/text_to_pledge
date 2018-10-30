@@ -100,50 +100,29 @@ const stepTwo = async msg => {
 };
 
 const stepThree = async msg => {
-  if (msg.Body.toLowerCase() === "no" || "no.") {
-    db.none(
-      "UPDATE sms_donors SET steps = 1, message_present = true WHERE phone_number = ${phone}",
-      {
-        phone: msg.From
-      }
-    )
-      .then(() => {
-        msg_actions.sendMsg(
-          msg.From,
-          "Thanks again for your pledge. If you would like to make an additional pledge, please reply with the amount of your additional pledge."
-        );
-      })
-      .catch(() => {
-        msg_actions.sendMsg(
-          msg.From,
-          "Sorry, something went wrong. Please try again."
-        );
-      });
-  } else {
-    const pledge_updated = await db_actions.updatePledge(msg).catch(() => {
+  const pledge_updated = await db_actions.updatePledge(msg).catch(() => {
+    msg_actions.sendMsg(
+      msg.From,
+      "Sorry, something went wrong. Please try again."
+    );
+  });
+
+  const update_donor = await db
+    .none("UPDATE sms_donors SET steps = 1 WHERE phone_number = ${phone}", {
+      phone: msg.From
+    })
+    .then(() => {
+      msg_actions.sendMsg(
+        msg.From,
+        "Thanks again for your pledge. If you would like to make an additional pledge, please reply with the amount of your additional pledge."
+      );
+    })
+    .catch(() => {
       msg_actions.sendMsg(
         msg.From,
         "Sorry, something went wrong. Please try again."
       );
     });
-
-    const update_donor = await db
-      .none("UPDATE sms_donors SET steps = 1 WHERE phone_number = ${phone}", {
-        phone: msg.From
-      })
-      .then(() => {
-        msg_actions.sendMsg(
-          msg.From,
-          "Thanks again for your pledge. If you would like to make an additional pledge, please reply with the amount of your additional pledge."
-        );
-      })
-      .catch(() => {
-        msg_actions.sendMsg(
-          msg.From,
-          "Sorry, something went wrong. Please try again."
-        );
-      });
-  }
 };
 
 module.exports = {

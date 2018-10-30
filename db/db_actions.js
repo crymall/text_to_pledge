@@ -91,17 +91,28 @@ const updatePledge = async body => {
       console.log(err);
     });
 
-  const updatePledge = db
-    .any(
-      "UPDATE sms_pledges SET message = ${msg}, message_present = true WHERE id = ${id}",
-      {
+  if (body.Body.toLowerCase() === "no" || "no.") {
+    const updatePledge = db
+      .any("UPDATE sms_pledges SET message_present = true WHERE id = ${id}", {
         msg: body.Body,
         id: pledge.id
-      }
-    )
-    .catch(err => {
-      console.log(err);
-    });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  } else {
+    const updatePledge = db
+      .any(
+        "UPDATE sms_pledges SET message = ${msg}, message_present = true WHERE id = ${id}",
+        {
+          msg: body.Body,
+          id: pledge.id
+        }
+      )
+      .catch(err => {
+        console.log(err);
+      });
+  }
 
   return updatePledge;
 };
