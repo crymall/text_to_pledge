@@ -86,11 +86,12 @@ const stepTwo = async msg => {
             msg.From,
             "Sorry, something went wrong. Please try again."
           );
-          msg_actions.sendMsg(
-            msg.From,
-            "What inspired you tonight? This response will be displayed to the audience. If you don't want to include a message with your pledge, please reply 'no'."
-          );
         });
+
+      msg_actions.sendMsg(
+        msg.From,
+        "What inspired you tonight? This response will be displayed to the audience. If you don't want to include a message with your pledge, please reply 'no'."
+      );
     } else {
       msg_actions.sendMsg(msg.From, "Please reply with a valid email.");
     }
