@@ -77,6 +77,13 @@ h4 {
   width: 385px;
 }
 
+.pledge-highlight {
+  padding-left: 30px;
+  padding-top: 30px;
+  width: 385px;
+  color: #edff00;
+}
+
 .pledge-area {
   width: 70%;
   text-align: center;

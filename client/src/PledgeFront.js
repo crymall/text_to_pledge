@@ -116,9 +116,9 @@ class PledgeFront extends Component {
 
         <div className="main-area">
           <div className="content-area">
-            <h3 className="pledge-instructions">
-              Text an amount to (347) 527-4222 to make a pledge
-            </h3>
+            <h3 className="pledge-instructions">Text an amount to</h3>
+            <h3 className="pledge-highlight">(347) 527-4222</h3>
+            <h3 className="pledge-instructions">to make a pledge</h3>
           </div>
           <div className="pledge-area">
             {largestFormattedPledge}
