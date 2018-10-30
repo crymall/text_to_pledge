@@ -91,7 +91,7 @@ const updatePledge = async body => {
       console.log(err);
     });
 
-  if (body.Body.toLowerCase() === "no" || "no.") {
+  if (body.Body.toLowerCase() === "no" || body.Body.toLowerCase() === "no.") {
     const updatePledge = db
       .any("UPDATE sms_pledges SET message_present = true WHERE id = ${id}", {
         msg: body.Body,
