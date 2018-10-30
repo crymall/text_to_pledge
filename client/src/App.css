@@ -73,13 +73,15 @@ h4 {
 
 .pledge-instructions {
   padding-left: 30px;
-  padding-top: 30px;
   width: 385px;
+  padding-top: 0px;
+  margin-bottom: 10px;
 }
 
 .pledge-highlight {
   padding-left: 30px;
-  padding-top: 30px;
+  padding-top: 0px;
+  margin-bottom: 10px;
   font-size: 35px;
   width: 385px;
   color: #edff00;
