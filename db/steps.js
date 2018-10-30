@@ -3,7 +3,7 @@ const db_actions = require("./db_actions");
 const db = require("./db_info");
 
 const validateEmail = email => {
-  let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  let re = /[\w-]+@([\w-]+\.)+[\w-]+/;
   return re.test(String(email).toLowerCase());
 };
 
@@ -48,7 +48,6 @@ const stepTwo = async msg => {
   if (donor.email) {
     if (parseFloat(Number(msg.Body.replace(/[^0-9.-]+/g, "")))) {
       const pledge = await db_actions.addPledge(msg);
-
       db.any("UPDATE sms_donors SET steps = 2 WHERE phone_number = ${phone}", {
         phone: msg.From
       })
