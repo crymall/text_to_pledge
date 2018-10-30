@@ -73,23 +73,22 @@ const stepTwo = async msg => {
     let test = validateEmail(msg.Body);
 
     if (test) {
-      db.any(
-        "UPDATE sms_donors SET steps = 2, email = ${email} WHERE phone_number = ${phone}",
-        {
-          phone: msg.From,
-          email: msg.Body
-        }
-      )
-        .then(() => {
-          msg_actions.sendMsg(
-            msg.From,
-            "What inspired you tonight? This response will be displayed to the audience. If you don't want to include a message with your pledge, please reply 'no'."
-          );
-        })
+      const update = await db
+        .any(
+          "UPDATE sms_donors SET steps = 2, email = ${email} WHERE phone_number = ${phone}",
+          {
+            phone: msg.From,
+            email: msg.Body
+          }
+        )
         .catch(() => {
           msg_actions.sendMsg(
             msg.From,
             "Sorry, something went wrong. Please try again."
+          );
+          msg_actions.sendMsg(
+            msg.From,
+            "What inspired you tonight? This response will be displayed to the audience. If you don't want to include a message with your pledge, please reply 'no'."
           );
         });
     } else {
