@@ -22,6 +22,8 @@ class PledgeFront extends Component {
     let totalDonors = await axios.get("/people");
     let allPledges = await axios.get("/pledges");
 
+    console.log(totalNum, totalDonors, allPledges);
+
     this.setState({
       total: totalNum.data.total,
       totalDonors: totalDonors.data.total,
