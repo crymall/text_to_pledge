@@ -17,20 +17,19 @@ class PledgeFront extends Component {
     this.getInfo();
   }
 
-  getInfo = async () => {
-    let totalNum = await axios.get("/total");
-    let totalDonors = await axios.get("/people");
-    let allPledges = await axios.get("/pledges");
-
-    console.log(totalNum, totalDonors, allPledges);
-
-    this.setState({
-      total: totalNum.data.total,
-      totalDonors: totalDonors.data.total,
-      pledges: allPledges.data.pledges
+  getInfo = () => {
+    axios.get("/total").then(total => {
+      axios.get("/people").then(people => {
+        axios.get("/pledges").then(pledges => {
+          this.setState({
+            total: total.data.total,
+            totalDonors: people.data.total,
+            pledges: pledges.data.pledges
+          });
+          setTimeout(this.getInfo, 5000);
+        });
+      });
     });
-
-    setTimeout(this.getInfo, 5000);
   };
 
   render() {

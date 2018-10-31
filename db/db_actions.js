@@ -124,7 +124,7 @@ const getTotalAmount = async () => {
 
 const getTotalPeople = async () => {
   const totalDonors = await db.one("SELECT COUNT(id) FROM sms_donors");
-  return totalPledges;
+  return totalDonors;
 };
 
 const getAllPledges = async () => {
