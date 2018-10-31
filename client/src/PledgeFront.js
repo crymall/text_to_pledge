@@ -22,8 +22,8 @@ class PledgeFront extends Component {
       axios.get("/people").then(people => {
         axios.get("/pledges").then(pledges => {
           this.setState({
-            total: total.data.total,
-            totalDonors: people.data.total,
+            total: total.data.total.sum,
+            totalDonors: people.data.total.count,
             pledges: pledges.data.pledges
           });
           setTimeout(this.getInfo, 5000);
