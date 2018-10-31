@@ -38,11 +38,7 @@ class PledgeFront extends Component {
     let totalPercent;
     let exceedMessage = (
       <h3 className="total-header">
-        Total raised:{" "}
-        <span className="pledger-num">
-          $$
-          {total}
-        </span>
+        Total raised: <span className="pledger-num">${total}</span>
       </h3>
     );
 
@@ -124,7 +120,9 @@ class PledgeFront extends Component {
             <h3 className="pledge-instructions">Text an amount to</h3>
             <h3 className="pledge-highlight">(347) 527-4222</h3>
             <h3 className="pledge-instructions">to make a pledge</h3>
-            <h3 className="pledge-stats">Total donors: {totalDonors}</h3>
+            <h3 className="pledge-stats">
+              Total donors: <span className="pledger-num">{totalDonors}</span>
+            </h3>
           </div>
           <div className="pledge-area">
             {largestFormattedPledge}
