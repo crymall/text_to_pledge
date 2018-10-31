@@ -37,6 +37,10 @@ h1 {
   padding-top: 20px;
 }
 
+.total-header {
+  padding-top: 35px;
+}
+
 .monogram {
   width: 75px;
   height: 75px;
@@ -89,8 +93,12 @@ h4 {
 
 .pledge-stats {
   width: 385px;
-  padding-top: 20px;
+  padding-top: 30px;
   margin-bottom: 10px;
+}
+
+.pledger-num {
+  color: #edff00;
 }
 
 .pledge-highlight {
