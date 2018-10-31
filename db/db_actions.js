@@ -124,7 +124,6 @@ const getTotalAmount = async () => {
 
 const getTotalPledgeCount = async () => {
   const totalPledgeCount = await db.one("SELECT COUNT(id) FROM sms_pledges");
-  console.log("TOTAL: ", totalPledgeCount);
   return totalPledgeCount;
 };
 

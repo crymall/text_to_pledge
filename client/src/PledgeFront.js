@@ -8,7 +8,7 @@ class PledgeFront extends Component {
     super();
     this.state = {
       total: 0,
-      totalDonors: 0,
+      totalPledges: 0,
       pledges: []
     };
   }
@@ -33,7 +33,7 @@ class PledgeFront extends Component {
   };
 
   render() {
-    const { total, totalDonors, pledges } = this.state;
+    const { total, totalPledges, pledges } = this.state;
     const goal = 75000;
     let totalPercent;
     let exceedMessage = (
@@ -121,7 +121,7 @@ class PledgeFront extends Component {
             <h3 className="pledge-highlight">(347) 527-4222</h3>
             <h3 className="pledge-instructions">to make a pledge</h3>
             <h3 className="pledge-stats">
-              Total Pledges: <span className="pledger-num">{totalDonors}</span>
+              Total Pledges: <span className="pledger-num">{totalPledges}</span>
             </h3>
           </div>
           <div className="pledge-area">
