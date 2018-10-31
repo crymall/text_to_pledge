@@ -123,7 +123,7 @@ const getTotalAmount = async () => {
 };
 
 const getTotalPledgeCount = async () => {
-  const totalDonors = await db.one("SELECT COUNT(id) FROM sms_pledges");
+  const totalPledgeCount = await db.one("SELECT COUNT(id) FROM sms_pledges");
   return totalPledgeCount;
 };
 
