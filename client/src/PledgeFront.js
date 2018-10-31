@@ -36,11 +36,10 @@ class PledgeFront extends Component {
     const { total, totalDonors, pledges } = this.state;
     const goal = 75000;
     let totalPercent;
-    let exceedMessage;
+    let exceedMessage = `Total raised: $${total}`;
 
     if (total >= goal) {
       totalPercent = 100;
-      exceedMessage = `Total raised: $${total} !`;
     } else {
       totalPercent = (total / goal) * 100;
     }
@@ -108,6 +107,7 @@ class PledgeFront extends Component {
       <div className="App">
         <div className="header-area">
           <h1> PURSUIT BASH </h1>
+          <h3>{exceedMessage}</h3>
           <div className="monogram" />
         </div>
 
@@ -116,7 +116,7 @@ class PledgeFront extends Component {
             <h3 className="pledge-instructions">Text an amount to</h3>
             <h3 className="pledge-highlight">(347) 527-4222</h3>
             <h3 className="pledge-instructions">to make a pledge</h3>
-            <h3 className="pledge-instructions">Total donors: {totalDonors}</h3>
+            <h3 className="pledge-stats">Total donors: {totalDonors}</h3>
           </div>
           <div className="pledge-area">
             {largestFormattedPledge}
@@ -169,7 +169,6 @@ class PledgeFront extends Component {
               </h3>
             </div>
           </div>
-          <h3>{exceedMessage}</h3>
         </div>
       </div>
     );
