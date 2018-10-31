@@ -70,7 +70,7 @@ const handleTotal = (req, res, next) => {
 };
 
 const handleTotalPeople = (req, res, next) => {
-  db_actions.getTotalPeople().then(total => {
+  db_actions.getTotalPledgeCount().then(total => {
     res.status(200).send({
       status: "OK",
       total: total

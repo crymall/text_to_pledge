@@ -122,9 +122,9 @@ const getTotalAmount = async () => {
   return totalPledges;
 };
 
-const getTotalPeople = async () => {
-  const totalDonors = await db.one("SELECT COUNT(id) FROM sms_donors");
-  return totalDonors;
+const getTotalPledgeCount = async () => {
+  const totalDonors = await db.one("SELECT COUNT(id) FROM sms_pledges");
+  return totalPledgeCount;
 };
 
 const getAllPledges = async () => {
@@ -141,6 +141,6 @@ module.exports = {
   addPledge,
   updatePledge,
   getTotalAmount,
-  getTotalPeople,
+  getTotalPledgeCount,
   getAllPledges
 };

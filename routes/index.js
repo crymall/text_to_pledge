@@ -7,6 +7,6 @@ router.post("/text", db.handleResponse);
 router.get("/blast", db.sendBlast);
 router.get("/total", db.handleTotal);
 router.get("/pledges", db.handlePledges);
-router.get("/people", db.handleTotalPeople);
+router.get("/pledgecount", db.handleTotalPeople);
 
 module.exports = router;

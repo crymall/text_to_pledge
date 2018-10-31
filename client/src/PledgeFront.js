@@ -19,11 +19,11 @@ class PledgeFront extends Component {
 
   getInfo = () => {
     axios.get("/total").then(total => {
-      axios.get("/people").then(people => {
+      axios.get("/pledgecount").then(count => {
         axios.get("/pledges").then(pledges => {
           this.setState({
             total: total.data.total.sum,
-            totalDonors: people.data.total.count,
+            totalPledges: count.data.total.count,
             pledges: pledges.data.pledges
           });
           setTimeout(this.getInfo, 5000);
@@ -121,7 +121,7 @@ class PledgeFront extends Component {
             <h3 className="pledge-highlight">(347) 527-4222</h3>
             <h3 className="pledge-instructions">to make a pledge</h3>
             <h3 className="pledge-stats">
-              Total donors: <span className="pledger-num">{totalDonors}</span>
+              Total Pledges: <span className="pledger-num">{totalDonors}</span>
             </h3>
           </div>
           <div className="pledge-area">
