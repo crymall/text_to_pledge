@@ -128,17 +128,23 @@ class PledgeFront extends Component {
             {pledges.length ? (
               { largestFormattedPledge }
             ) : (
-              <div className="singlePledge" />
+              <div className="singlePledge">
+                <h3 className="pledge-category">Largest Pledge:</h3>
+              </div>
             )}
             {pledges.length ? (
               { recentFormattedPledge }
             ) : (
-              <div className="singlePledge" />
+              <div className="singlePledge">
+                <h3 className="pledge-category">Most Recent Pledge:</h3>
+              </div>
             )}
             {pledges.length ? (
               { randomFormattedPledge }
             ) : (
-              <div className="singlePledge" />
+              <div className="singlePledge">
+                <h3 className="pledge-category">All Pledges:</h3>
+              </div>
             )}
           </div>
         </div>
