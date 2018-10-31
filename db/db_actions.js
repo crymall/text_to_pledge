@@ -122,6 +122,11 @@ const getTotalAmount = async () => {
   return totalPledges;
 };
 
+const getTotalPeople = async () => {
+  const totalDonors = await db.one("SELECT COUNT(id) FROM sms_donors");
+  return totalPledges;
+};
+
 const getAllPledges = async () => {
   const allPledges = await db.any(
     "SELECT * FROM sms_pledges JOIN sms_donors ON sms_pledges.sms_donor_id = sms_donors.id WHERE sms_donors.name IS NOT NULL AND message_present = true"

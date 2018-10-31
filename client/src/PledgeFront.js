@@ -8,6 +8,7 @@ class PledgeFront extends Component {
     super();
     this.state = {
       total: 0,
+      totalDonors: 0,
       pledges: []
     };
   }
@@ -16,27 +17,22 @@ class PledgeFront extends Component {
     this.getInfo();
   }
 
-  getInfo = () => {
-    axios
-      .get("/total")
-      .then(res => {
-        return res.data.total.sum;
-      })
-      .then(total => {
-        axios.get("/pledges").then(res => {
-          this.setState({
-            total: total,
-            pledges: res.data.pledges
-          });
-        });
-      })
-      .then(() => {
-        setTimeout(this.getInfo, 5000);
-      });
+  getInfo = async () => {
+    let totalNum = await axios.get("/total");
+    let totalDonors = await axios.get("/people");
+    let allPledges = await axios.get("/pledges");
+
+    this.setState({
+      total: totalNum.data.total,
+      totalDonors: totalDonors.data.total,
+      pledges: allPledges.data.pledges
+    });
+
+    setTimeout(this.getInfo, 5000);
   };
 
   render() {
-    const { total, pledges } = this.state;
+    const { total, totalDonors, pledges } = this.state;
     const goal = 75000;
     let totalPercent;
     let exceedMessage;
@@ -119,6 +115,7 @@ class PledgeFront extends Component {
             <h3 className="pledge-instructions">Text an amount to</h3>
             <h3 className="pledge-highlight">(347) 527-4222</h3>
             <h3 className="pledge-instructions">to make a pledge</h3>
+            <h3 className="pledge-instructions">Total donors: {totalDonors}</h3>
           </div>
           <div className="pledge-area">
             {largestFormattedPledge}
