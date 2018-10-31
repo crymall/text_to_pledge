@@ -36,7 +36,15 @@ class PledgeFront extends Component {
     const { total, totalDonors, pledges } = this.state;
     const goal = 75000;
     let totalPercent;
-    let exceedMessage = `Total raised: <span className="pledger-num">$${total}</span>`;
+    let exceedMessage = (
+      <h3 className="total-header">
+        Total raised:{" "}
+        <span className="pledger-num">
+          $$
+          {total}
+        </span>
+      </h3>
+    );
 
     if (total >= goal) {
       totalPercent = 100;
@@ -107,7 +115,7 @@ class PledgeFront extends Component {
       <div className="App">
         <div className="header-area">
           <h1> PURSUIT BASH </h1>
-          <h3 className="total-header">{exceedMessage}</h3>
+          {exceedMessage}
           <div className="monogram" />
         </div>
 
