@@ -69,7 +69,7 @@ const handleTotal = (req, res, next) => {
   });
 };
 
-const handleTotalPeople = (req, res, next) => {
+const handleTotalPledges = (req, res, next) => {
   db_actions.getTotalPledgeCount().then(total => {
     res.status(200).send({
       status: "OK",
@@ -105,7 +105,7 @@ const sendBlast = async (req, res, next) => {
 module.exports = {
   handleResponse,
   handleTotal,
-  handleTotalPeople,
+  handleTotalPledges,
   handlePledges,
   sendBlast
 };
