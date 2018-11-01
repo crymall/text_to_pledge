@@ -93,7 +93,7 @@ const sendBlast = async (req, res, next) => {
   numbers.forEach(num => {
     msg_actions.sendMsg(
       num.phone_number,
-      "Thanks so much for contributing! Please consider volunteering as well."
+      "Thank you so much for joining us at the Pursuit Bash. To learn more about how to volunteer, hire a Fellow, or get involved with leadership opportunities, visit http://bit.ly/pursuitbash"
     );
   });
 
