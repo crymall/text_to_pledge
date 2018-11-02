@@ -136,7 +136,7 @@ const getAllPledges = async () => {
 
 const getAllPledgers = async () => {
   const allPledgers = await db.any(
-    "SELECT * FROM sms_donors JOIN sms_pledges ON sms_pledges.sms_donor_id = sms_donors.id"
+    "SELECT sms_donors.phone_number, sms_donors.name, sms_donors.email, sms_pledges.message, sms_pledges.payment, sms_pledges.amount FROM sms_donors JOIN sms_pledges ON sms_pledges.sms_donor_id = sms_donors.id"
   );
 
   return allPledgers;
