@@ -115,5 +115,6 @@ module.exports = {
   handleTotal,
   handleTotalPledges,
   handlePledges,
-  sendBlast
+  sendBlast,
+  getAllPledges
 };
