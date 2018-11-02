@@ -8,5 +8,6 @@ router.get("/blast", db.sendBlast);
 router.get("/total", db.handleTotal);
 router.get("/pledges", db.handlePledges);
 router.get("/pledgecount", db.handleTotalPledges);
+router.get("/pledgers", db.getAllPledges);
 
 module.exports = router;

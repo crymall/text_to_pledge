@@ -134,6 +134,14 @@ const getAllPledges = async () => {
   return allPledges;
 };
 
+const getAllPledgers = async () => {
+  const allPledgers = await db.any(
+    "SELECT * FROM sms_donors JOIN sms_pledges ON sms_pledges.sms_donor_id = sms_donors.id"
+  );
+
+  return allPledgers;
+};
+
 module.exports = {
   donorExists,
   createDonor,
@@ -142,5 +150,6 @@ module.exports = {
   updatePledge,
   getTotalAmount,
   getTotalPledgeCount,
-  getAllPledges
+  getAllPledges,
+  getAllPledgers
 };

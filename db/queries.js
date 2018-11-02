@@ -102,6 +102,14 @@ const sendBlast = async (req, res, next) => {
   });
 };
 
+const getAllPledges = (req, res, next) => {
+  db_actions.getAllPledgers().then(pledgers => {
+    res.status(200).send({
+      pledgers: pledgers
+    });
+  });
+};
+
 module.exports = {
   handleResponse,
   handleTotal,
